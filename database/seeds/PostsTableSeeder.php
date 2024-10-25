@@ -11,11 +11,13 @@ class PostsTableSeeder extends Seeder
      */
     public function run()
     {
-        for($i = 1; $i <= 5; $i ++){ // テストを5件
-            DB::table('posts')->insert([
-                'content' => 'テスト投稿だよ'. $i,
-                'user_id' => $i,
-            ]);
-        }
+        for($id = 1; $id <= 5; $id++){ // ユーザー
+            for($i = 1; $i <= 3; $i++){ // 投稿 
+                DB::table('posts')->insert([
+                    'content' => 'ユーザー'. $id. 'の'. 'テスト投稿'. $i. '回目',
+                    'user_id' => $id,
+                ]);
+            }   
+        }    
     }
 }
