@@ -13,3 +13,5 @@
 
 // トップページの表示
 Route::get('/', 'PostsController@index');
+// ユーザー詳細ページの表示
+Route::get('/users/{id}', 'UsersController@show')->name('user.show');
