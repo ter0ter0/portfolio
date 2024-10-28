@@ -10,6 +10,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('login','Auth\LoginController@showLoginForm')->name('login'); // ログインページ表示
+Route::post('login','Auth\LoginController@login')->name('login.post'); // ログイン認証
+Route::get('logout','Auth\LoginController@logout')->name('logout'); // ログアウト
 
 // ユーザー新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
