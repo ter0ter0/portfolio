@@ -6,8 +6,17 @@
         </div>
     </div>
     <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
-        <div class="w-75 m-auto">エラーメッセージが入る場所</div>
+        <div class="w-75 m-auto">
+            @if (count($errors) > 0)
+                <ul class="alert alert-danger" role="alert">
+                    @foreach ($errors->all() as $error)
+                        <li class="ml-4">{{ $error }}</li>
+                    @endforeach
+                </ul>
+            @endif
+        </div>
         <div class="text-center mb-3">
+        @if(Auth::check() && Auth::id() === $post->user_id)
             <form method="" action="" class="d-inline-block w-75">
                 <div class="form-group">
                     <textarea class="form-control" name="" rows=""></textarea>
@@ -16,7 +25,9 @@
                     </div>
                 </div>
             </form>
+        @endif
         </div>
+        @include('posts.posts', ['posts' => $posts])
 @endsection
 
 
