@@ -22,5 +22,5 @@
         </li>
     @endforeach
 </ul>
-<div class="m-auto" style="width: fit-content"></div>
-{{ $posts->links('pagination::bootstrap-4') }}
+<div class="m-auto" style="width: fit-content">{{ $posts->links('pagination::bootstrap-4') }}</div>
+
