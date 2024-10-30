@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Post;
+use App\Http\Requests\PostRequest;
 
 class PostsController extends Controller
 {
@@ -23,5 +24,13 @@ class PostsController extends Controller
             'post' => $post,
         ];
         return view('posts.edit', $data);
+    }
+
+    // 投稿編集処理
+    public function update(PostRequest $request, $id){
+        $post = Post::findOrFail($id);
+        $post->content = $request->content;
+        $post->save();
+        return redirect()->route('index');
     }
 }
