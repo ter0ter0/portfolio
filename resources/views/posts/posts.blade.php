@@ -1,3 +1,5 @@
+@extends('layouts.app')
+@section('content')
 <ul class="list-unstyled">
     @foreach($posts as $post)
         <li class="mb-3 text-center">
@@ -23,4 +25,4 @@
     @endforeach
 </ul>
 <div class="m-auto" style="width: fit-content">{{ $posts->links('pagination::bootstrap-4') }}</div>
-
+@endsection
