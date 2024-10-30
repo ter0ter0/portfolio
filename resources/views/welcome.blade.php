@@ -16,6 +16,7 @@
             @endif
         </div>
         <div class="text-center mb-3">
+        @foreach($posts as $post)
         @if(Auth::check() && Auth::id() === $post->user_id)
             <form method="" action="" class="d-inline-block w-75">
                 <div class="form-group">
@@ -26,6 +27,7 @@
                 </div>
             </form>
         @endif
+        @endforeach
         </div>
         @include('posts.posts', ['posts' => $posts])
 @endsection
