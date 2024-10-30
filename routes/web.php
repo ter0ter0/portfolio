@@ -21,3 +21,8 @@ Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 Route::get('/', 'PostsController@index');
 // ユーザー詳細ページの表示
 Route::get('/users/{id}', 'UsersController@show')->name('user.show');
+
+
+// 作成中
+Route::get('/users/{id}/edit', 'UsersController@edit')->name('user.edit');
+
