@@ -1895,6 +1895,7 @@
         },
         {
             "name": "symfony/css-selector",
+<<<<<<< HEAD
             "version": "v5.4.45",
             "source": {
                 "type": "git",
@@ -1905,6 +1906,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/css-selector/zipball/4f7f3c35fba88146b56d0025d20ace3f3901f097",
                 "reference": "4f7f3c35fba88146b56d0025d20ace3f3901f097",
+=======
+            "version": "v5.4.40",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/css-selector.git",
+                "reference": "ea43887e9afd2029509662d4f95e8b5ef6fc9bbb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/css-selector/zipball/ea43887e9afd2029509662d4f95e8b5ef6fc9bbb",
+                "reference": "ea43887e9afd2029509662d4f95e8b5ef6fc9bbb",
+>>>>>>> develop_b_kannaduki_dra
                 "shasum": ""
             },
             "require": {
@@ -1941,7 +1954,11 @@
             "description": "Converts CSS selectors to XPath expressions",
             "homepage": "https://symfony.com",
             "support": {
+<<<<<<< HEAD
                 "source": "https://github.com/symfony/css-selector/tree/v5.4.45"
+=======
+                "source": "https://github.com/symfony/css-selector/tree/v5.4.40"
+>>>>>>> develop_b_kannaduki_dra
             },
             "funding": [
                 {
@@ -1957,7 +1974,11 @@
                     "type": "tidelift"
                 }
             ],
+<<<<<<< HEAD
             "time": "2024-09-25T14:11:13+00:00"
+=======
+            "time": "2024-05-31T14:33:22+00:00"
+>>>>>>> develop_b_kannaduki_dra
         },
         {
             "name": "symfony/debug",
@@ -2640,6 +2661,7 @@
         },
         {
             "name": "symfony/mime",
+<<<<<<< HEAD
             "version": "v5.4.45",
             "source": {
                 "type": "git",
@@ -2650,6 +2672,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/mime/zipball/8c1b9b3e5b52981551fc6044539af1d974e39064",
                 "reference": "8c1b9b3e5b52981551fc6044539af1d974e39064",
+=======
+            "version": "v5.4.43",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/mime.git",
+                "reference": "a02711d6ce461edada8c0f8641aa536709b99b47"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/mime/zipball/a02711d6ce461edada8c0f8641aa536709b99b47",
+                "reference": "a02711d6ce461edada8c0f8641aa536709b99b47",
+>>>>>>> develop_b_kannaduki_dra
                 "shasum": ""
             },
             "require": {
@@ -2705,7 +2739,11 @@
                 "mime-type"
             ],
             "support": {
+<<<<<<< HEAD
                 "source": "https://github.com/symfony/mime/tree/v5.4.45"
+=======
+                "source": "https://github.com/symfony/mime/tree/v5.4.43"
+>>>>>>> develop_b_kannaduki_dra
             },
             "funding": [
                 {
@@ -2721,7 +2759,11 @@
                     "type": "tidelift"
                 }
             ],
+<<<<<<< HEAD
             "time": "2024-10-23T20:18:32+00:00"
+=======
+            "time": "2024-08-13T10:38:38+00:00"
+>>>>>>> develop_b_kannaduki_dra
         },
         {
             "name": "symfony/polyfill-ctype",
