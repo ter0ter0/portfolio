@@ -18,7 +18,7 @@ Route::get('logout','Auth\LoginController@logout')->name('logout'); // ログア
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 // トップページの表示
-Route::get('/', 'PostsController@index')->name('index');
+Route::get('/', 'PostsController@index')->name('post.index');
 // ユーザー詳細ページの表示
 Route::get('/users/{id}', 'UsersController@show')->name('user.show');
 

@@ -17,20 +17,16 @@ class PostsController extends Controller
     // 投稿編集画面の表示
     public function edit($id)
     {
-        $user = \Auth::user();
         $post = Post::findOrFail($id);
-        $data = [
-            'user' => $user,
-            'post' => $post,
-        ];
-        return view('posts.edit', $data);
+        return view('posts.edit', ['post' => $post]);
     }
 
     // 投稿編集処理
-    public function update(PostRequest $request, $id){
+    public function update(PostRequest $request, $id)
+    {
         $post = Post::findOrFail($id);
         $post->content = $request->content;
         $post->save();
-        return redirect()->route('index');
+        return redirect()->route('post.index');
     }
 }
