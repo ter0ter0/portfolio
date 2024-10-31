@@ -18,6 +18,17 @@ Route::get('logout','Auth\LoginController@logout')->name('logout'); // ログア
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 // トップページの表示
-Route::get('/', 'PostsController@index');
+Route::get('/', 'PostsController@index')->name('post.index');
 // ユーザー詳細ページの表示
 Route::get('/users/{id}', 'UsersController@show')->name('user.show');
+
+// ログイン後
+Route::group(['middleware' => 'auth'], function(){
+    //投稿関係
+    Route::prefix('posts')->group(function(){
+        // 投稿編集画面
+        Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
+        // 投稿編集処理
+        Route::put('{id}/edit', 'PostsController@update')->name('post.update');
+    });
+});
