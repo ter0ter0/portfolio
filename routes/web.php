@@ -24,9 +24,5 @@ Route::get('/users/{id}', 'UsersController@show')->name('user.show');
 
 //ログイン後
 Route::group(['middleware' => 'auth'],function(){ // ログインしている場合以下にアクセスできる。
-    Route::prefix('posts')->group(function(){ // アドレスの先頭にpostsを付ける。
-        Route::get('', 'PostsController@create')->name('post.create'); // 投稿の新規投稿画面を表示
-        Route::post('', 'PostsController@store')->name('post.store'); // DBに投稿を保存
-        Route::get('{id}', 'PostsController@destroy')->name('post.delete'); // DBの投稿を削除
-    });
+    Route::post('', 'PostsController@store')->name('post.store'); // DBに投稿を保存
 });

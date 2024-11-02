@@ -1,5 +1,3 @@
-@extends('layouts.app')
-@section('content')
 <ul class="list-unstyled">
     @foreach($posts as $post)
         <li class="mb-3 text-center">
@@ -9,8 +7,8 @@
             </div>
             <div class="">
                 <div class="text-left d-inline-block w-75">
-                    <p class="mb-2">{{$post->content}}</p>
-                    <p class="text-muted">{{$post->created_at}}</p>
+                    <p class="mb-2">{{ $post->content }}</p>
+                    <p class="text-muted">{{ $post->created_at }}</p>
                 </div>
                 @if(Auth::id() === $post->user_id)
                     <div class="d-flex justify-content-between w-75 pb-3 m-auto">
@@ -25,4 +23,3 @@
     @endforeach
 </ul>
 <div class="m-auto" style="width: fit-content">{{ $posts->links('pagination::bootstrap-4') }}</div>
-@endsection
