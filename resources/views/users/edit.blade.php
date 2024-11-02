@@ -6,7 +6,7 @@
         <input type="hidden" name="id" value="" />
         <div class="form-group">
             <label for="name">ユーザ名</label>
-            <input class="form-control" value="{{ $post->user->name }}" name="name" />
+            <input class="form-control" value="" name="name" />
         </div>
         <div class="form-group">
             <label for="email">メールアドレス</label>

@@ -7,7 +7,7 @@
             </div>
             <div class="">
                 <div class="text-left d-inline-block w-75">
-                    <p class="mb-2">{{$post->content}}</p>
+                    <p class="mb-2">{!! nl2br(e($post->content)) !!}</p>
                     <p class="text-muted">{{$post->created_at}}</p>
                 </div>
                 @if(Auth::id() === $post->user_id)
@@ -15,7 +15,7 @@
                         <form method="" action="">
                             <button type="submit" class="btn btn-danger">削除</button>
                         </form>
-                        <a href="" class="btn btn-primary">編集する</a>
+                        <a href="{{ route('post.edit', $post->id) }}" class="btn btn-primary">編集する</a>
                     </div>
                 @endif
             </div>
