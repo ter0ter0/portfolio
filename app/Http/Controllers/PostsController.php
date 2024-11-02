@@ -31,10 +31,6 @@ class PostsController extends Controller
         $post->content = $request->content;
         $post->save();
         return redirect()->route('post.index');
-        $posts = Post::orderBy('id','desc')->paginate(10);
-        return view('welcome', [
-            'posts' => $posts,
-        ]);
     }
     
     // 新規投稿処理
