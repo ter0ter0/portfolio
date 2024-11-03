@@ -34,4 +34,5 @@ class PostRequest extends FormRequest
             'content' => '投稿',
         ];
     }
+    
 }

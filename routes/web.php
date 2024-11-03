@@ -10,9 +10,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('login','Auth\LoginController@showLoginForm')->name('login'); // ログインページ表示
-Route::post('login','Auth\LoginController@login')->name('login.post'); // ログイン認証
-Route::get('logout','Auth\LoginController@logout')->name('logout'); // ログアウト
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login'); // ログインページ表示
+Route::post('login', 'Auth\LoginController@login')->name('login.post'); // ログイン認証
+Route::get('logout', 'Auth\LoginController@logout')->name('logout'); // ログアウト
 
 // ユーザー新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
@@ -24,6 +24,8 @@ Route::get('/users/{id}', 'UsersController@show')->name('user.show');
 
 // ログイン後
 Route::group(['middleware' => 'auth'], function(){
+    //DBに投稿を保存
+    Route::post('', 'PostsController@store')->name('post.store');
     //投稿関係
     Route::prefix('posts')->group(function(){
         // 投稿編集画面
