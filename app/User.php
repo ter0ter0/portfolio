@@ -43,4 +43,13 @@ class User extends Authenticatable
     {
         return $this->hasMany(Post::class);
     }
+
+    // cascade削除(論理削除)が適用されないため下記のbootメソッドで子テーブルを削除
+    public static function boot()
+    {
+        parent::boot();
+        static::deleted(function ($user) {
+            $user->posts()->delete();
+        });
+    }
 }
