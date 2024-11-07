@@ -34,6 +34,11 @@ Route::group(['middleware' => 'auth'], function(){
         // 投稿編集処理
         Route::put('{id}/edit', 'PostsController@update')->name('post.update');
     });
+    // フォロー機能
+    Route::group(['prefix' => 'users/{id}'], function(){
+        Route::post('follow', 'FollowController@store')->name('user.follow');
+        Route::delete('unfollow', 'FollowController@destroy')->name('user.unfollow');
+    });
     // ユーザー関係
    Route::prefix('users/{id}')->group(function(){
            // ユーザー退会
