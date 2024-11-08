@@ -30,7 +30,7 @@ class PostsController extends Controller
         $post = Post::findOrFail($id);
         $post->content = $request->content;
         $post->save();
-        return redirect()->route('post.index')->with('successMessage', '投稿が内容が更新されました');
+        return redirect()->route('post.index')->with('successMessage', '投稿内容を更新しました');
     }
     
     // 新規投稿処理
@@ -41,6 +41,6 @@ class PostsController extends Controller
         $post->content = $request->content;
         $post->user_id = $user->id;
         $post->save();
-        return redirect()->back()->with('successMessage', '投稿されました');
+        return redirect()->back()->with('successMessage', '投稿しました');
     }
 }
