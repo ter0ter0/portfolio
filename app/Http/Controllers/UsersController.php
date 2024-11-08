@@ -22,10 +22,9 @@ class UsersController extends Controller
     public function destroy($id)
     {
         $user = User::findOrFail($id);
-        if($user->id === \Auth::id())
-        {
+        if($user->id === \Auth::id()){
             $user->delete();
         }
-        return redirect()->route('post.index');
+        return redirect()->route('post.index')->with('alertMessage', '退会しました');
     }
 }

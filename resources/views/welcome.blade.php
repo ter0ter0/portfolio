@@ -1,5 +1,14 @@
 @extends('layouts.app')
 @section('content')
+    @if (session('successMessage'))
+        <div class="alert alert-success text-center w-30 mx-auto">
+            {{ session('successMessage') }}
+        </div> 
+    @elseif (session('alertMessage'))
+        <div class="alert alert-danger text-center w-30 mx-auto">
+            {{ session('alertMessage') }}
+        </div>            
+    @endif
     <div class="center jumbotron bg-info">
         <div class="text-center text-white mt-2 pt-1">
             <h1><i class="pr-3"></i>Topic Posts</h1>
