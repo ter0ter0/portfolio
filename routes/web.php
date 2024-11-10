@@ -27,7 +27,7 @@ Route::get('/users/{id}', 'UsersController@show')->name('user.show');
 // 編集画面の表示
 Route::get('/users/{id}/edit', 'UsersController@edit')->name('user.edit');
 // 更新の送信
-Route::post('/users/{id}/edit', 'UsersController@update')->name('user.update');
+Route::put('/users/{id}', 'UsersController@update')->name('user.update');
 
 
 // ログイン後(投稿編集画面・更新)
