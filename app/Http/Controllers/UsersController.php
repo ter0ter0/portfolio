@@ -18,4 +18,13 @@ class UsersController extends Controller
         ];
         return view('users.show', $data);
     }
+
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        if ($user->id === \Auth::id()) {
+            $user->delete();
+        }
+        return redirect()->route('post.index');
+    }
 }
