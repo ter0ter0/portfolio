@@ -40,8 +40,8 @@ Route::group(['middleware' => 'auth'], function(){
         Route::delete('unfollow', 'FollowController@destroy')->name('user.unfollow');
     });
     // ユーザー関係
-   Route::prefix('users/{id}')->group(function(){
-           // ユーザー退会
+    Route::prefix('users/{id}')->group(function(){
+            // ユーザー退会
         Route::delete('', 'UsersController@destroy')->name('user.delete');
     });
 });
