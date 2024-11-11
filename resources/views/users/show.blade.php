@@ -21,11 +21,17 @@
         </aside>
         <div class="col-sm-8">
             <ul class="nav nav-tabs nav-justified mb-3">
-                <li class="nav-item"><a href="{{ route('user.show', $user->id) }}" class="nav-link {{ Request::is('users/' . $user->id) ? 'active' : '' }}">タイムライン</a></li>
-                <li class="nav-item"><a href="{{ route('user.followings', $user->id) }}" class="nav-link {{ Request::is('users/' . $user->id . '/followings') ? 'active' : '' }}">フォロー中</a></li>
-                <li class="nav-item"><a href="{{ route('user.followers', $user->id) }}" class="nav-link {{ Request::is('users/' . $user->id . '/followers') ? 'active' : '' }}">フォロワー</a></li>
+                <li class="nav-item"><a href="{{ route('user.show', $user->id) }}" class="nav-link {{ $tab === 'timeline' ? 'active' : '' }}">タイムライン</a></li>
+                <li class="nav-item"><a href="{{ route('user.followings', $user->id) }}" class="nav-link {{ $tab === 'followings' ? 'active' : '' }}">フォロー中</a></li>
+                <li class="nav-item"><a href="{{ route('user.followers', $user->id) }}" class="nav-link {{ $tab === 'followers' ? 'active' : '' }}">フォロワー</a></li>
             </ul>
-            @include('posts.posts', ['user' => $user, 'posts' => $posts])
+            @if ($tab === 'timeline')
+                @include('posts.posts', ['user' => $user, 'posts' => $posts])
+            @elseif ($tab === 'followings')
+                @include('users.users', ['users' => $followings])
+            @elseif ($tab === 'followers')
+                @include('users.users', ['users' => $followers])
+            @endif
         </div>
     </div>
 @endsection

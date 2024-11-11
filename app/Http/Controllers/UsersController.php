@@ -15,6 +15,7 @@ class UsersController extends Controller
         $data = [
             'user' => $user,
             'posts' => $posts,
+            'tab' =>'timeline',
         ];
         return view('users.show', $data);
     }
@@ -23,11 +24,11 @@ class UsersController extends Controller
     public function followers($id)
     {
         $user = User::findOrFail($id);
-        $followerIds = $user->followers()->pluck('users.id');
-        $posts = Post::whereIn('user_id', $followerIds)->orderBy('id', 'desc')->paginate(10);
+        $followers = $user->followers()->paginate(10);
         $data = [
             'user' => $user,
-            'posts' => $posts,
+            'followers' => $followers,
+            'tab' => 'followers',
         ];
         return view('users.show', $data);
     }
@@ -36,11 +37,11 @@ class UsersController extends Controller
     public function followings($id)
     {
         $user = User::findOrFail($id);
-        $followingIds = $user->followings()->pluck('users.id');
-        $posts = Post::whereIn('user_id', $followingIds)->orderBy('id', 'desc')->paginate(10);
+        $followings = $user->followings()->paginate(10);
         $data = [
             'user' => $user,
-            'posts' => $posts,
+            'followings' => $followings,
+            'tab' => 'followings',
         ];
         return view('users.show', $data);
     }
