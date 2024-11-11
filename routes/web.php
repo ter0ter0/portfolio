@@ -23,16 +23,15 @@ Route::get('/', 'PostsController@index')->name('post.index');
 Route::get('/users/{id}', 'UsersController@show')->name('user.show');
 
 
-// 作成中 ログイン後（ユーザー編集画面・更新）
-// 編集画面の表示
-Route::get('/users/{id}/edit', 'UsersController@edit')->name('user.edit');
-// 更新の送信
-Route::put('/users/{id}', 'UsersController@update')->name('user.update');
-
-
-// ログイン後(投稿編集画面・更新)
+// ログイン後（ユーザー編集画面・更新）
 Route::group(['middleware' => 'auth'], function(){
-    //投稿関係
+    Route::prefix('users/{id}')->group(function(){
+        // 編集画面の表示
+        Route::get('/edit', 'UsersController@edit')->name('user.edit');
+        // 更新の送信
+        Route::put('', 'UsersController@update')->name('user.update');
+    });
+            //投稿関係
     Route::prefix('posts')->group(function(){
         // 投稿編集画面
         Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');

@@ -25,20 +25,21 @@ class UsersController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        return view('users.edit', ['user' => $user ]
-        );
+        return view('users.edit', [
+            'user' => $user 
+        ]);
     }
 
     // ユーザー編集画面の更新処理
     public function update(UserRequest $request, $id)
     {
+        if (\Auth::id() !== (int) $id) {
+            abort(403, 'Unauthorized action.');
+        }
         $user = User::findOrFail($id);
         $user->name = $request->name; // フォームから送られてきたname
         $user->email = $request->email;// フォームから送られてきたemail
-        if ($request->filled('password')) {
-            $user->password = Hash::make($request->password);     
-            $user->save();
-            return back();
-    }
-}
+        $user->save();
+        return back();
+    }   
 }
