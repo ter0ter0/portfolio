@@ -10,4 +10,12 @@ use Illuminate\Routing\Controller as BaseController;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    public function userCount($user)
+    {
+        $countFavorites = $user->favorites()->count(); // いいね数をカウント
+        return [
+            'countFavorite' => $countFavorites,
+        ];
+    }
 }
