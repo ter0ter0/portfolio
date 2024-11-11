@@ -39,4 +39,7 @@ Route::group(['middleware' => 'auth'], function(){
         Route::post('follow', 'FollowController@store')->name('user.follow');
         Route::delete('unfollow', 'FollowController@destroy')->name('user.unfollow');
     });
+
+    // いいね機能
+    Route::group(['prefix' => ''])
 });
