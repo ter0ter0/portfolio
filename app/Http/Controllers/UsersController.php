@@ -17,6 +17,7 @@ class UsersController extends Controller
             'posts' => $posts,
             'tab' =>'timeline',
         ];
+        $data += $this->userCounts($user);
         return view('users.show', $data);
     }
 
@@ -30,6 +31,7 @@ class UsersController extends Controller
             'followers' => $followers,
             'tab' => 'followers',
         ];
+        $data += $this->userCounts($user);
         return view('users.show', $data);
     }
 
@@ -43,6 +45,7 @@ class UsersController extends Controller
             'followings' => $followings,
             'tab' => 'followings',
         ];
+        $data += $this->userCounts($user);
         return view('users.show', $data);
     }
 
