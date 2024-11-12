@@ -22,6 +22,8 @@ Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 Route::get('/', 'PostsController@index')->name('post.index');
 // ユーザー詳細ページの表示
 Route::get('/users/{id}', 'UsersController@show')->name('user.show');
+//検索機能
+Route::get('/search', 'SearchController@search')->name('search');
 
 // ログイン後
 Route::group(['middleware' => 'auth'], function(){
