@@ -25,6 +25,10 @@ class UsersController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
+        if (\Auth::id() !== (int) $id) {
+            abort(403);
+        }
+
         return view('users.edit', [
             'user' => $user 
         ]);
@@ -33,13 +37,11 @@ class UsersController extends Controller
     // ユーザー編集画面の更新処理
     public function update(UserRequest $request, $id)
     {
-        if (\Auth::id() !== (int) $id) {
-            abort(403, 'Unauthorized action.');
-        }
         $user = User::findOrFail($id);
         $user->name = $request->name; // フォームから送られてきたname
         $user->email = $request->email;// フォームから送られてきたemail
+        $user->password = bcrypt($request->password);   
         $user->save();
-        return back();
+        return redirect()->route('user.show', ['id' => $user->id]); 
     }   
 }
