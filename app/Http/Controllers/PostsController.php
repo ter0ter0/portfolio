@@ -32,4 +32,15 @@ class PostsController extends Controller
         $post->save();
         return redirect()->route('post.index');
     }
+    
+    // 新規投稿処理
+    public function store(PostRequest $request)
+    {
+        $user = \Auth::user();
+        $post = new Post;
+        $post->content = $request->content;
+        $post->user_id = $user->id;
+        $post->save();
+        return redirect()->back();
+    }
 }

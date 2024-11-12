@@ -43,4 +43,55 @@ class User extends Authenticatable
     {
         return $this->hasMany(Post::class);
     }
+
+    // フォロワーを取得
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'following_id', 'follower_id');
+    }
+
+    // ユーザーがフォローしている人を取得
+    public function followings()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'follower_id', 'following_id');
+    }
+
+    // フォローする
+    public function follow($userId)
+    {
+        $exist = $this->isFollowing($userId);
+        if ($exist) {
+            return false;
+        } else {
+            $this->followings()->attach($userId);
+            return true;
+        }
+    }
+
+    // フォロー解除
+    public function unfollow($userId)
+    {
+        $exist = $this->isFollowing($userId);
+        if ($exist) {
+            $this->followings()->detach($userId);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // フォローしているかどうか確認
+    public function isFollowing($userId)
+    {
+        return $this->followings()->where('following_id', $userId)->exists();
+    }
+
+    // cascade削除(論理削除)が適用されないため下記のbootメソッドで子テーブルを削除
+    public static function boot()
+    {
+        parent::boot();
+        static::deleted(function ($user) {
+            $user->posts()->delete();
+        });
+    }
 }

@@ -43,5 +43,14 @@ class UsersController extends Controller
         $user->password = bcrypt($request->password);   
         $user->save();
         return redirect()->route('user.show', ['id' => $user->id]); 
-    }   
+    }
+
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        if ($user->id === \Auth::id()) {
+            $user->delete();
+        }
+        return redirect()->route('post.index');
+    }
 }
