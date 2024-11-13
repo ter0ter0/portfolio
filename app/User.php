@@ -87,6 +87,15 @@ class User extends Authenticatable
         return $this->followings()->where('following_id', $userId)->exists();
     }
 
+    // cascade削除(論理削除)が適用されないため下記のbootメソッドで子テーブルを削除
+    public static function boot()
+    {
+        parent::boot();
+        static::deleted(function ($user) {
+            $user->posts()->delete();
+        });
+    }
+
     // いいね機能・リレーション
     public function favorites()
     {
@@ -110,7 +119,7 @@ class User extends Authenticatable
     public function unfavorite($postId)
     {
         $exist = $this->isFavorite($postId);
-        if ($exist){
+        if ($exist) {
             $this->favorites()->detach($postId);
             return true;
         }

@@ -10,6 +10,9 @@
                     <p class="mb-2">{!! nl2br(e($post->content)) !!}</p>
                     <p class="text-muted">{{$post->created_at}}</p>
                 </div>
+                    <div class="text-left d-inline-block w-75">
+                        @include('favorite.favorite_button', ['post' => $post])
+                    </div>
                 @if(Auth::id() === $post->user_id)
                     <div class="d-flex justify-content-between w-75 pb-3 m-auto">
                         <form method="" action="">
