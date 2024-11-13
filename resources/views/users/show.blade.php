@@ -1,5 +1,14 @@
 @extends('layouts.app')
 @section('content')
+    @if (session('successMessage'))
+        <div class="alert alert-success text-center w-30 mx-auto">
+            {{ session('successMessage') }}
+        </div> 
+    @elseif (session('alertMessage'))
+        <div class="alert alert-danger text-center w-30 mx-auto">
+            {{ session('alertMessage') }}
+        </div>            
+    @endif
     <div class="row">
         <aside class="col-sm-4 mb-5">
             <div class="card bg-info">
@@ -10,10 +19,13 @@
                     <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 400) }}" alt="ユーザのアバター画像">
                         @if (Auth::id() === $user->id)
                             <div class="mt-3">
-                                <a href="" class="btn btn-primary btn-block">ユーザ情報の編集</a>
+                                <a href="{{ route('user.edit', $user->id) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
                             </div>
                         @endif
                 </div>
+            </div>
+            <div class="mt-2">
+                @include('follow.follow_button', ['user' => $user])
             </div>
         </aside>
         <div class="col-sm-8">
