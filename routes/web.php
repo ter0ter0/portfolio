@@ -25,8 +25,16 @@ Route::get('/users/{id}', 'UsersController@show')->name('user.show');
 //検索機能
 Route::get('/search', 'SearchController@search')->name('search');
 
-// ログイン後
+
+// ログイン後（ユーザー編集画面・更新）
 Route::group(['middleware' => 'auth'], function(){
+    Route::prefix('users/{id}')->group(function(){
+        // 編集画面の表示
+        Route::get('/edit', 'UsersController@edit')->name('user.edit');
+        // 更新の送信
+        Route::put('', 'UsersController@update')->name('user.update');
+    });
+            //投稿関係
     //DBに投稿を保存
     Route::post('', 'PostsController@store')->name('post.store');
     //投稿関係
