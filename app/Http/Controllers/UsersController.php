@@ -23,7 +23,7 @@ class UsersController extends Controller
         return view('users.show', $data);
     }
 
-    // フォロワーの投稿表示
+    // フォロワーの表示
     public function followers($id)
     {
         $user = User::findOrFail($id);
@@ -37,7 +37,7 @@ class UsersController extends Controller
         return view('users.show', $data);
     }
 
-    // フォロー中ユーザーの投稿表示
+    // フォロー中ユーザーの表示
     public function followings($id)
     {
         $user = User::findOrFail($id);
@@ -60,7 +60,7 @@ class UsersController extends Controller
         }
 
         return view('users.edit', [
-            'user' => $user 
+            'user' => $user
         ]);
     }
 
@@ -70,9 +70,9 @@ class UsersController extends Controller
         $user = User::findOrFail($id);
         $user->name = $request->name; // フォームから送られてきたname
         $user->email = $request->email;// フォームから送られてきたemail
-        $user->password = bcrypt($request->password);   
+        $user->password = bcrypt($request->password);
         $user->save();
-        return redirect()->route('user.show', ['id' => $user->id]); 
+        return redirect()->route('user.show', ['id' => $user->id]);
     }
 
     public function destroy($id)
