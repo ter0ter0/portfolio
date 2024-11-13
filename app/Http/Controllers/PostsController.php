@@ -43,4 +43,14 @@ class PostsController extends Controller
         $post->save();
         return redirect()->back();
     }
+
+    // 投稿の削除
+    public function destroy($id)
+    {
+        $post = Post::findOrFail($id);
+        if ($post->user_id === \Auth::id()){
+            $post->delete();
+        }
+        return back();
+    }
 }
