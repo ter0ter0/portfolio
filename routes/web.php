@@ -48,6 +48,8 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
         // 投稿編集処理
         Route::put('{id}/edit', 'PostsController@update')->name('post.update');
+        // 投稿の削除
+        Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
     });
     // フォロー機能
     Route::group(['prefix' => 'users/{id}'], function(){
