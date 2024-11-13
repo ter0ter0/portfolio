@@ -20,8 +20,15 @@ Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('sign
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 // トップページの表示
 Route::get('/', 'PostsController@index')->name('post.index');
-// ユーザー詳細ページの表示
-Route::get('/users/{id}', 'UsersController@show')->name('user.show');
+
+Route::group(['prefix' => 'users/{id}'], function(){
+    // ユーザー詳細ページの表示
+    Route::get('', 'UsersController@show')->name('user.show');
+    // フォロワーの表示
+    Route::get('followers', 'UsersController@followers')->name('user.followers');
+    // フォロー中の表示
+    Route::get('followings', 'UsersController@followings')->name('user.followings');
+});
 
 
 // ログイン後（ユーザー編集画面・更新）
