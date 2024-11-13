@@ -99,7 +99,7 @@ class User extends Authenticatable
     // いいね機能・リレーション
     public function favorites()
     {
-        return $this->belongsToMany(User::class, 'favorites', 'user_id', 'post_id');
+        return $this->belongsToMany(Post::class, 'favorites', 'user_id', 'post_id');
     }
 
     // いいねをする
