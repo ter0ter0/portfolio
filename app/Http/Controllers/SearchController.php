@@ -8,5 +8,8 @@ use App\Post;
 
 class SearchController extends Controller
 {
-    //
+    public function search()
+    {
+        return view('search.search');
+    }
 }
