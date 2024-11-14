@@ -17,7 +17,37 @@ class UsersController extends Controller
         $data = [
             'user' => $user,
             'posts' => $posts,
+            'tab' =>'timeline',
         ];
+        $data += $this->userCounts($user);
+        return view('users.show', $data);
+    }
+
+    // フォロワーの表示
+    public function followers($id)
+    {
+        $user = User::findOrFail($id);
+        $followers = $user->followers()->paginate(10);
+        $data = [
+            'user' => $user,
+            'followers' => $followers,
+            'tab' => 'followers',
+        ];
+        $data += $this->userCounts($user);
+        return view('users.show', $data);
+    }
+
+    // フォロー中ユーザーの表示
+    public function followings($id)
+    {
+        $user = User::findOrFail($id);
+        $followings = $user->followings()->paginate(10);
+        $data = [
+            'user' => $user,
+            'followings' => $followings,
+            'tab' => 'followings',
+        ];
+        $data += $this->userCounts($user);
         return view('users.show', $data);
     }
 
@@ -30,7 +60,7 @@ class UsersController extends Controller
         }
 
         return view('users.edit', [
-            'user' => $user 
+            'user' => $user
         ]);
     }
 
@@ -40,9 +70,9 @@ class UsersController extends Controller
         $user = User::findOrFail($id);
         $user->name = $request->name; // フォームから送られてきたname
         $user->email = $request->email;// フォームから送られてきたemail
-        $user->password = bcrypt($request->password);   
+        $user->password = bcrypt($request->password);
         $user->save();
-        return redirect()->route('user.show', ['id' => $user->id])->with('successMessage', 'ユーザー情報を更新しました'); 
+        return redirect()->route('user.show', ['id' => $user->id])->with('successMessage', 'ユーザー情報を更新しました');
     }
 
     public function destroy($id)
