@@ -39,7 +39,6 @@ Route::group(['middleware' => 'auth'], function(){
         // 更新の送信
         Route::put('', 'UsersController@update')->name('user.update');
     });
-            //投稿関係
     //DBに投稿を保存
     Route::post('', 'PostsController@store')->name('post.store');
     //投稿関係

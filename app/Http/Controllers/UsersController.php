@@ -72,7 +72,7 @@ class UsersController extends Controller
         $user->email = $request->email;// フォームから送られてきたemail
         $user->password = bcrypt($request->password);
         $user->save();
-        return redirect()->route('user.show', ['id' => $user->id]);
+        return redirect()->route('user.show', ['id' => $user->id])->with('successMessage', 'ユーザー情報を更新しました');
     }
 
     public function destroy($id)
@@ -81,6 +81,6 @@ class UsersController extends Controller
         if ($user->id === \Auth::id()) {
             $user->delete();
         }
-        return redirect()->route('post.index');
+        return redirect()->route('post.index')->with('alertMessage', '退会しました');
     }
 }
