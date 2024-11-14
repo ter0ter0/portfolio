@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 Use App\User;
 Use App\Post;
+use App\Http\Requests\UserRequest;
+use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
@@ -15,8 +17,62 @@ class UsersController extends Controller
         $data = [
             'user' => $user,
             'posts' => $posts,
+            'tab' =>'timeline',
         ];
+        $data += $this->userCounts($user);
         return view('users.show', $data);
+    }
+
+    // フォロワーの表示
+    public function followers($id)
+    {
+        $user = User::findOrFail($id);
+        $followers = $user->followers()->paginate(10);
+        $data = [
+            'user' => $user,
+            'followers' => $followers,
+            'tab' => 'followers',
+        ];
+        $data += $this->userCounts($user);
+        return view('users.show', $data);
+    }
+
+    // フォロー中ユーザーの表示
+    public function followings($id)
+    {
+        $user = User::findOrFail($id);
+        $followings = $user->followings()->paginate(10);
+        $data = [
+            'user' => $user,
+            'followings' => $followings,
+            'tab' => 'followings',
+        ];
+        $data += $this->userCounts($user);
+        return view('users.show', $data);
+    }
+
+    // ユーザー編集画面の表示
+    public function edit($id)
+    {
+        $user = User::findOrFail($id);
+        if (\Auth::id() !== (int) $id) {
+            abort(403);
+        }
+
+        return view('users.edit', [
+            'user' => $user
+        ]);
+    }
+
+    // ユーザー編集画面の更新処理
+    public function update(UserRequest $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $user->name = $request->name; // フォームから送られてきたname
+        $user->email = $request->email;// フォームから送られてきたemail
+        $user->password = bcrypt($request->password);
+        $user->save();
+        return redirect()->route('user.show', ['id' => $user->id]);
     }
 
     public function destroy($id)

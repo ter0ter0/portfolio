@@ -11,10 +11,13 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function userCount($user)
-    {
+    public function userCounts($user){
+        $countFollowers = $user->followers()->count();
+        $countFollowings = $user->followings()->count();
         $countFavorites = $user->favorites()->count(); // いいね数をカウント
         return [
+            'countFollowers' => $countFollowers,
+            'countFollowings' => $countFollowings,
             'countFavorite' => $countFavorites,
         ];
     }
