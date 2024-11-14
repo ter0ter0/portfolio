@@ -30,7 +30,7 @@ class PostsController extends Controller
         $post = Post::findOrFail($id);
         $post->content = $request->content;
         $post->save();
-        return redirect()->route('post.index');
+        return redirect()->route('post.index')->with('successMessage', '投稿内容を更新しました');
     }
     
     // 新規投稿処理
@@ -41,6 +41,16 @@ class PostsController extends Controller
         $post->content = $request->content;
         $post->user_id = $user->id;
         $post->save();
-        return redirect()->back();
+        return redirect()->back()->with('successMessage', '投稿しました');
+    }
+
+    // 投稿の削除
+    public function destroy($id)
+    {
+        $post = Post::findOrFail($id);
+        if ($post->user_id === \Auth::id()){
+            $post->delete();
+        }
+        return back()->with('alertMessage', '投稿を削除しました');
     }
 }

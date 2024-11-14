@@ -20,10 +20,17 @@ Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('sign
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 // トップページの表示
 Route::get('/', 'PostsController@index')->name('post.index');
-// ユーザー詳細ページの表示
-Route::get('/users/{id}', 'UsersController@show')->name('user.show');
 //検索機能
 Route::get('/search', 'SearchController@search')->name('search');
+
+Route::group(['prefix' => 'users/{id}'], function(){
+    // ユーザー詳細ページの表示
+    Route::get('', 'UsersController@show')->name('user.show');
+    // フォロワーの表示
+    Route::get('followers', 'UsersController@followers')->name('user.followers');
+    // フォロー中の表示
+    Route::get('followings', 'UsersController@followings')->name('user.followings');
+});
 
 
 // ログイン後（ユーザー編集画面・更新）
@@ -33,8 +40,13 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('/edit', 'UsersController@edit')->name('user.edit');
         // 更新の送信
         Route::put('', 'UsersController@update')->name('user.update');
+        // ユーザー退会
+        Route::delete('', 'UsersController@destroy')->name('user.delete');
+        // フォロー追加
+        Route::post('follow', 'FollowController@store')->name('user.follow');
+        // フォロー解除
+        Route::delete('unfollow', 'FollowController@destroy')->name('user.unfollow');
     });
-            //投稿関係
     //DBに投稿を保存
     Route::post('', 'PostsController@store')->name('post.store');
     //投稿関係
@@ -43,15 +55,7 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
         // 投稿編集処理
         Route::put('{id}/edit', 'PostsController@update')->name('post.update');
-    });
-    // フォロー機能
-    Route::group(['prefix' => 'users/{id}'], function(){
-        Route::post('follow', 'FollowController@store')->name('user.follow');
-        Route::delete('unfollow', 'FollowController@destroy')->name('user.unfollow');
-    });
-    // ユーザー関係
-    Route::prefix('users/{id}')->group(function(){
-            // ユーザー退会
-        Route::delete('', 'UsersController@destroy')->name('user.delete');
+        // 投稿の削除
+        Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
     });
 });
