@@ -33,6 +33,3 @@
         </div>
         @include('posts.posts', ['posts' => $posts])
 @endsection
-
-
-
