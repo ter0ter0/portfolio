@@ -14,11 +14,9 @@ class Controller extends BaseController
     public function userCounts($user){
         $countFollowers = $user->followers()->count();
         $countFollowings = $user->followings()->count();
-        $countFavorites = $user->favorites()->count(); // ユーザーがいいねした投稿数。※現在は使用していない。
         return [
             'countFollowers' => $countFollowers,
             'countFollowings' => $countFollowings,
-            'countFavorites' => $countFavorites,
         ];
     }
 }
