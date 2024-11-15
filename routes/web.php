@@ -30,7 +30,6 @@ Route::group(['prefix' => 'users/{id}'], function(){
     Route::get('followings', 'UsersController@followings')->name('user.followings');
 });
 
-
 // ログイン後（ユーザー編集画面・更新）
 Route::group(['middleware' => 'auth'], function(){
     Route::prefix('users/{id}')->group(function(){
