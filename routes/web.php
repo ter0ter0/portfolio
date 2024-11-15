@@ -18,12 +18,16 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 // ユーザー新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
+
 // トップページの表示
 Route::get('/', 'PostsController@index')->name('post.index');
-//検索機能
-Route::get('/search', 'SearchController@search')->name('search');
 
-Route::group(['prefix' => 'users/{id}'], function(){
+//検索機能
+Route::prefix('search')->group(function(){
+    Route::get('', 'SearchController@search')->name('search');
+});
+
+Route::prefix('users/{id}')->group(function(){
     // ユーザー詳細ページの表示
     Route::get('', 'UsersController@show')->name('user.show');
     // フォロワーの表示

@@ -26,6 +26,8 @@
 .custom-search-input button:hover {
     border: 0;
     box-shadow: none;
+    color: #14A2B8;
+    background-color: #fff;
     border-left: solid 1px #ccc;
 }
 .custom-search-input .fa-magnifying-glass{
