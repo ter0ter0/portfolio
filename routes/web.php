@@ -36,7 +36,6 @@ Route::prefix('users/{id}')->group(function(){
     Route::get('followings', 'UsersController@followings')->name('user.followings');
 });
 
-
 // ログイン後（ユーザー編集画面・更新）
 Route::group(['middleware' => 'auth'], function(){
     Route::prefix('users/{id}')->group(function(){
@@ -61,5 +60,10 @@ Route::group(['middleware' => 'auth'], function(){
         Route::put('{id}/edit', 'PostsController@update')->name('post.update');
         // 投稿の削除
         Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
+    });
+    // いいね機能
+    Route::group(['prefix' => 'posts/{id}'], function(){
+        Route::post('favorite', 'FavoritesController@store')->name('post.favorite');
+        Route::delete('unfavorite', 'FavoritesController@destroy')->name('post.unfavorite');
     });
 });
