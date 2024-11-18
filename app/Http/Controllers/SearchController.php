@@ -14,12 +14,12 @@ class SearchController extends Controller
         $keyword = $request->input('keyword', '');
         $tab = $request->input('tab', 'posts');
 
+        $users = null;
+        $posts = null;
         if ($tab === 'posts'){
             $posts = Post::where('content', 'Like', '%' . $keyword . '%')->paginate(10);
-            $users = null;
         } else {
             $users = User::where('name', 'Like', '%' . $keyword . '%')->paginate(10);
-            $posts = null;
         }
 
         $data = [

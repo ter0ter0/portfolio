@@ -4,6 +4,11 @@
     border-radius: 6px;
     background-color: #fff;
 }
+.custom-search-input form{
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+}
 
 .custom-search-input input {
     border: none;
