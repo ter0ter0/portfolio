@@ -36,6 +36,9 @@ Route::prefix('users/{id}')->group(function(){
     Route::get('followings', 'UsersController@followings')->name('user.followings');
 });
 
+// 返信ページの表示
+Route::get('posts/{id}/reply', 'RepliesController@index')->name('reply.index');
+
 // ログイン後（ユーザー編集画面・更新）
 Route::group(['middleware' => 'auth'], function(){
     Route::prefix('users/{id}')->group(function(){
