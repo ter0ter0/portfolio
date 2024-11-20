@@ -30,4 +30,4 @@
         </li>
     @endforeach
 </ul>
-<div class="m-auto" style="width: fit-content">{{ $posts->links('pagination::bootstrap-4') }}</div>
+<div class="m-auto" style="width: fit-content">{{ $posts->appends(['keyword' => request()->input('keyword', '')])->links('pagination::bootstrap-4') }}</div>

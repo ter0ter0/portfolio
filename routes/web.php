@@ -18,10 +18,16 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 // ユーザー新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
+
 // トップページの表示
 Route::get('/', 'PostsController@index')->name('post.index');
 
-Route::group(['prefix' => 'users/{id}'], function(){
+//検索機能
+Route::prefix('search')->group(function(){
+    Route::get('', 'SearchController@search')->name('search');
+});
+
+Route::prefix('users/{id}')->group(function(){
     // ユーザー詳細ページの表示
     Route::get('', 'UsersController@show')->name('user.show');
     // フォロワーの表示
@@ -37,6 +43,12 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('/edit', 'UsersController@edit')->name('user.edit');
         // 更新の送信
         Route::put('', 'UsersController@update')->name('user.update');
+        // ユーザー退会
+        Route::delete('', 'UsersController@destroy')->name('user.delete');
+        // フォロー追加
+        Route::post('follow', 'FollowController@store')->name('user.follow');
+        // フォロー解除
+        Route::delete('unfollow', 'FollowController@destroy')->name('user.unfollow');
     });
     //DBに投稿を保存
     Route::post('', 'PostsController@store')->name('post.store');
@@ -49,17 +61,6 @@ Route::group(['middleware' => 'auth'], function(){
         // 投稿の削除
         Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
     });
-    // フォロー機能
-    Route::group(['prefix' => 'users/{id}'], function(){
-        Route::post('follow', 'FollowController@store')->name('user.follow');
-        Route::delete('unfollow', 'FollowController@destroy')->name('user.unfollow');
-    });
-    // ユーザー関係
-    Route::prefix('users/{id}')->group(function(){
-            // ユーザー退会
-        Route::delete('', 'UsersController@destroy')->name('user.delete');
-    });
-
     // いいね機能
     Route::group(['prefix' => 'posts/{id}'], function(){
         Route::post('favorite', 'FavoritesController@store')->name('post.favorite');
