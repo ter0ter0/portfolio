@@ -49,5 +49,5 @@
         </form>
     @endif
     </div>
-    {{-- @include('replies.replies', ['posts' => $posts]) --}}
+    @include('replies.replies', ['post' => $post])
 @endsection
