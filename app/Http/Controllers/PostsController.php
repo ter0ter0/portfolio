@@ -12,9 +12,8 @@ class PostsController extends Controller
     public function index()
     {
         $posts = Post::orderBy('id','desc')->paginate(10);
-        return view('welcome', [
-            'posts' => $posts,
-        ]);
+        $topPosts = Post::withMostFavorite(10)->get();
+        return view('welcome', ['posts' => $posts, 'topPosts' => $topPosts]);
     }
 
     // 投稿編集画面の表示

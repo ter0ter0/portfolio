@@ -18,4 +18,9 @@ class Post extends Model
     {
         return $this->belongsToMany(User::class,'favorites','post_id','user_id')->withTimestamps();
     }
+
+    public function scopeWithMostFavorite($query, $limit = 10)
+    {
+        return $query->withCount('favoriteUsers')->orderBy('favorite_users_count', 'desc')->take($limit);
+    }
 }
