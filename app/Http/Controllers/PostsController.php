@@ -12,7 +12,7 @@ class PostsController extends Controller
     public function index()
     {
         $posts = Post::orderBy('id','desc')->paginate(10);
-        $topPosts = Post::withMostFavorite(10)->get();
+        $topPosts = Post::withMostFavorite(5)->get();
         return view('welcome', ['posts' => $posts, 'topPosts' => $topPosts]);
     }
 

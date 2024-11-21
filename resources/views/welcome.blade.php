@@ -40,7 +40,7 @@
         </div>
         <aside class="col-sm-4 border-left">
             <div class="custom-search-input">
-                <form class="input-group col-md-12" method="GET" action="">
+                <form class="input-group col-md-12" method="GET" action="{{ route('search') }}">
                     @csrf
                     <input type="text" name="keyword" class="form-control input-lg" value="{{ old('keyword', $keyword ?? '') }}" placeholder="検索" />
                     <span class="input-group-btn">
