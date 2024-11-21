@@ -14,7 +14,7 @@
             </li>
         @endforeach
     </ul>
-    <div class="m-auto" style="width: fit-content">{{ $users->appends(['keyword' => request()->input('keyword', '')])->links('pagination::bootstrap-4') }}</div>
+    <div class="m-auto" style="width: fit-content">{{ $users->links('pagination::bootstrap-4') }}</div>
 @else
     <p>ユーザーが見つかりませんでした。</p>
 @endif
