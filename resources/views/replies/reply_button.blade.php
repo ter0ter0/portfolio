@@ -1,9 +1,9 @@
-{{-- @php
-    $countFavoriteUsers = $post->favoriteUsers()->count();
-@endphp --}}
+@php
+    $countReplies = $post->replies()->count();
+@endphp
 
 <button class="btn m-0 p-1 shadow-none"><a class="text-dark" href="{{ route('reply.index', $post->id) }}" data-toggle="tooltip" title="返信"><i class="far fa-comment"></i></a></button>
-{{-- <span id="favorite-count-{{ $post->id }}" class="badge badge-pill">{{ $countFavoriteUsers }}</span> --}}
+<span id="reply-count-{{ $post->id }}" class="badge badge-pill">{{ $countReplies }}</span>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {

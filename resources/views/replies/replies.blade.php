@@ -1,6 +1,6 @@
 <ul class="list-unstyled">
     @foreach($replies as $reply)
-        <li class="mb-3 text-center">
+        <li class="mb-3 text-center pl-4 pr-4">
             <hr class="my-4">
             <div class="text-left d-inline-block w-75 mb-2">
                 <img class="mr-2 rounded-circle" src="{{Gravatar::src($reply->user->email, 55)}}" alt="ユーザのアバター画像">
