@@ -21,6 +21,9 @@ class Post extends Model
 
     public function scopeWithMostFavorite($query, $limit = 5)
     {
-        return $query->withCount('favoriteUsers')->orderBy('favorite_users_count', 'desc')->take($limit);
+        return $query->withCount('favoriteUsers')
+        ->having('favorite_users_count', '>', '0')
+        ->orderBy('favorite_users_count', 'desc')
+        ->take($limit);
     }
 }

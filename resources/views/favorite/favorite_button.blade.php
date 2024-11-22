@@ -15,8 +15,10 @@
             <button type="submit" class="btn m-0 p-1 shadow-none"><i class="bi bi-heart"></i></button>
         </form>
     @endif
-    <span id="favorite-count-{{ $post->id }}" class="badge badge-pill">{{ $countFavoriteUsers }}</span>
+@else
+    <a href="{{ route('login') }}" class="btn m-0 p-1 shadow-none" data-toggle="tooltip" title="いいねしてログイン"><i class="bi bi-heart"></i></a>
 @endif
+<span id="favorite-count-{{ $post->id }}" class="badge badge-pill">{{ $countFavoriteUsers }}</span>
 
 <script>
     // ツールチップ初期化処理
