@@ -12,8 +12,13 @@
                         <p class="mb-2">{!! nl2br(e($post->content)) !!}</p>
                         <p class="text-muted">{{$post->created_at}}</p>
                     </div>
-                    <div class="text-left d-inline-block w-75">
-                        @include('favorite.favorite_button', ['post' => $post])
+                    <div class="d-flex align-items-center w-75 mb-2 mx-auto">
+                        <div class="mr-4">
+                            @include('replies.reply_button')
+                        </div>
+                        <div class="mr-4">
+                            @include('favorite.favorite_button', ['post' => $post])
+                        </div>
                     </div>
                 </div>
                 @if(Auth::id() === $post->user_id)

@@ -19,6 +19,11 @@ class Post extends Model
         return $this->belongsToMany(User::class,'favorites','post_id','user_id')->withTimestamps();
     }
 
+    public function replies()
+    {
+        return $this->hasMany(Reply::class);
+    }
+
     public function scopeWithMostFavorite($query, $limit = 5)
     {
         return $query->withCount('favoriteUsers')
