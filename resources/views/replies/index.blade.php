@@ -43,7 +43,7 @@
     </div>
     <div class="text-center mb-3">
     @if(Auth::check())
-        <form method="" action="" class="d-inline-block w-75">
+        <form method="POST" action="{{ route('reply.store', $post->id) }}" class="d-inline-block w-75">
             @csrf
             <div class="form-group">
                 <textarea class="form-control" name="content" rows="4"></textarea>

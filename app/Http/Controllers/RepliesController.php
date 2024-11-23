@@ -19,4 +19,16 @@ class RepliesController extends Controller
         ];
         return view('replies.index', $data);
     }
+
+    public function store(Request $request, $id)
+    {
+        $post = Post::findOrFail($id);
+        $user = \Auth::user();
+        $reply = new Reply;
+        $reply->content = $request->content;
+        $reply->user_id = $user->id;
+        $reply->post_id = $post->id;
+        $reply->save();
+        return redirect()->back()->with('successMassage', '返信しました');
+    }
 }
