@@ -50,6 +50,7 @@
                     </span>
                 </form>
             </div>
+           @include('favorite.top_favorite_posts', ['topPosts' => $topPosts])
         </aside>
     </div>
 @endsection
