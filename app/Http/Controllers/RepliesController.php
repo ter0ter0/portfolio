@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Post;
 use App\Reply;
+use App\Http\Requests\ReplyRequest;
 
 class RepliesController extends Controller
 {
@@ -20,7 +21,7 @@ class RepliesController extends Controller
         return view('replies.index', $data);
     }
 
-    public function store(Request $request, $id)
+    public function store(ReplyRequest $request, $id)
     {
         $post = Post::findOrFail($id);
         $user = \Auth::user();
@@ -29,6 +30,6 @@ class RepliesController extends Controller
         $reply->user_id = $user->id;
         $reply->post_id = $post->id;
         $reply->save();
-        return redirect()->back()->with('successMassage', '返信しました');
+        return redirect()->back()->with('successMessage', '返信しました');
     }
 }
