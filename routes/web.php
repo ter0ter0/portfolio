@@ -65,6 +65,10 @@ Route::group(['middleware' => 'auth'], function(){
         Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
         // 返信の追加処理
         Route::post('{id}/reply', 'RepliesController@store')->name('reply.store');
+        // 返信の編集画面
+        Route::get('{id}/reply/edit', 'RepliesController@edit')->name('reply.edit');
+        // 返信の編集処理
+        Route::put('{id}/reply/edit', 'RepliesController@update')->name('reply.update');
     });
     // いいね機能
     Route::group(['prefix' => 'posts/{id}'], function(){
