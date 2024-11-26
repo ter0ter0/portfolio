@@ -69,6 +69,8 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('{id}/reply/edit', 'RepliesController@edit')->name('reply.edit');
         // 返信の編集処理
         Route::put('{id}/reply/edit', 'RepliesController@update')->name('reply.update');
+        // 返信の削除
+        Route::delete('{id}/reply/delete', 'RepliesController@destroy')->name('reply.delete');
     });
     // いいね機能
     Route::group(['prefix' => 'posts/{id}'], function(){
