@@ -63,14 +63,18 @@ Route::group(['middleware' => 'auth'], function(){
         Route::put('{id}/edit', 'PostsController@update')->name('post.update');
         // 投稿の削除
         Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
-        // 返信の追加処理
-        Route::post('{id}/reply', 'RepliesController@store')->name('reply.store');
-        // 返信の編集画面
-        Route::get('{id}/reply/edit', 'RepliesController@edit')->name('reply.edit');
-        // 返信の編集処理
-        Route::put('{id}/reply/edit', 'RepliesController@update')->name('reply.update');
-        // 返信の削除
-        Route::delete('{id}/reply/delete', 'RepliesController@destroy')->name('reply.delete');
+
+        // 返信関係
+        Route::prefix('{id}/reply')->group(function(){
+            // 返信の追加処理
+            Route::post('', 'RepliesController@store')->name('reply.store');
+            // 返信の編集画面
+            Route::get('edit', 'RepliesController@edit')->name('reply.edit');
+            // 返信の編集処理
+            Route::put('edit', 'RepliesController@update')->name('reply.update');
+            // 返信の削除
+            Route::delete('delete', 'RepliesController@destroy')->name('reply.delete');
+        });
     });
     // いいね機能
     Route::group(['prefix' => 'posts/{id}'], function(){
