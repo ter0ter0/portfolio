@@ -32,4 +32,36 @@ class RepliesController extends Controller
         $reply->save();
         return redirect()->back()->with('successMessage', '返信しました');
     }
+
+    // 返信編集画面の表示
+    public function edit($id)
+    {
+        $reply = Reply::findOrFail($id);
+        $user = \Auth::user();
+
+        if ($user->id !== $reply->user_id) {
+            abort(403);
+        }
+
+        return view('replies.edit', ['reply' => $reply]);
+    }
+
+    // 返信の編集処理
+    public function update(ReplyRequest $request, $id)
+    {
+        $reply = Reply::findOrFail($id);
+        $reply->content = $request->content;
+        $reply->save();
+        return redirect()->route('reply.index', $reply->post->id)->with('successMessage', '返信内容を更新しました');
+    }
+
+    // 返信の削除
+    public function destroy(Request $request, $id)
+    {
+        $reply = Reply::findOrFail($id);
+        if ($reply->user_id === \Auth::id()){
+            $reply->delete();
+        }
+        return back()->with('alertMessage', '返信を削除しました');
+    }
 }

@@ -15,12 +15,12 @@
                 </div>
                 @if(Auth::id() === $reply->user_id)
                     <div class="d-flex justify-content-between w-75 pb-3 m-auto">
-                        <form method="" action="">
+                        <form method="POST" action="{{ route('reply.delete', $reply->id) }}">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">削除</button>
                         </form>
-                        <a href="" class="btn btn-primary">編集する</a>
+                        <a href="{{ route('reply.update', $reply->id) }}" class="btn btn-primary">編集する</a>
                     </div>
                 @endif
             </div>
