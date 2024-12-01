@@ -28,6 +28,7 @@ class UserRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255','unique:users,email,' . $this->id],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048'],
         ];
     }
 
@@ -37,6 +38,7 @@ class UserRequest extends FormRequest
             'name' => '名前',
             'email' => 'メールアドレス',
             'password' => 'パスワード',
+            'image' => 'プロフィール画像',
         ];
     }
 }

@@ -1,13 +1,14 @@
 @extends('layouts.app')
+
 @section('content')
     @if (session('successMessage'))
         <div class="alert alert-success text-center w-30 mx-auto">
             {{ session('successMessage') }}
-        </div> 
+        </div>
     @elseif (session('alertMessage'))
         <div class="alert alert-danger text-center w-30 mx-auto">
             {{ session('alertMessage') }}
-        </div>            
+        </div>
     @endif
     <div class="row">
         <aside class="col-sm-4 mb-5">
@@ -15,8 +16,10 @@
                 <div class="card-header">
                     <h3 class="card-title text-light">{{ $user->name }}</h3>
                 </div>
-                <div class="card-body">
-                    <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 400) }}" alt="ユーザのアバター画像">
+                <div class="card-body text-center">
+                    <div class="rounded-circle overflow-hidden mx-auto" style="max-width: 100%; width: 90%; aspect-ratio: 1 / 1;">
+                        <img src="{{ $user->image ? asset('storage/' . $user->image) : Gravatar::src($user->email, 400) }}" alt="ユーザのアバター画像" class="w-100 h-100" style="object-fit: cover;">
+                    </div>
                         @if (Auth::id() === $user->id)
                             <div class="mt-3">
                                 <a href="{{ route('user.edit', $user->id) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>

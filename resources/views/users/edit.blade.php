@@ -1,10 +1,20 @@
 @extends('layouts.app')
+
+@section('css')
+    <link rel="stylesheet" href="{{ asset('css/users/edit.css') }}">
+@endsection
+
 @section('content')
 <h2 class="mt-5 mb-3">ユーザ情報を編集する</h2>
 @include('commons.error_messages')
-    <form method="post" action="{{ route('user.update', $user->id) }}">
+    <form method="post" action="{{ route('user.update', $user->id) }}" enctype="multipart/form-data">
     @csrf
     @method('put')
+        <div class="form-group">
+            <div class="profile-image-preview" id="profileImagePreview" style="background-image: url('{{ $user->image ? asset('storage/' . $user->image) : Gravatar::src($user->email, 150) }}')"></div>
+            <label class="profile-image-label" for="image">画像を選択する</label>
+            <input class="profile-image-input" id="image" type="file" name="image" accept="image/*">
+        </div>
         <div class="form-group">
             <label for="name">ユーザ名</label>
             <input class="form-control" value="{{ old('name',$user->name) }}" name="name" />
@@ -47,4 +57,23 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('script')
+    <script>
+        document.getElementById('image').addEventListener('change', function(event){
+            const file = event.target.files[0];
+            const preview = document.getElementById('profileImagePreview');
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.style.backgroundImage = `url('${e.target.result}')`;
+                };
+                reader.readAsDataURL(file);
+            } else {
+                preview.style.backgroundImage = '';
+            }
+        });
+    </script>
 @endsection
