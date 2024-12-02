@@ -13,7 +13,12 @@ class RepliesController extends Controller
     public function index($id)
     {
         $post = Post::findOrFail($id);
-        $replies = $post->replies()->orderBy('id', 'asc')->paginate(10);
+
+        $replies = $post->replies()->whereHas('user', function ($query) {
+            $query->whereNull('deleted_at');
+        })
+        ->orderBy('id', 'asc')->paginate(10);
+
         $data = [
             'post' => $post,
             'replies' => $replies,

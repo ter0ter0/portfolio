@@ -1,5 +1,7 @@
 @php
-    $countReplies = $post->replies()->count();
+    $countReplies = $post->replies()->whereHas('user', function ($query) {
+        $query->whereNull('deleted_at');
+    })->count();
 @endphp
 
 <button class="btn m-0 p-1 shadow-none"><a class="text-dark" href="{{ route('reply.index', $post->id) }}" data-toggle="tooltip" title="返信"><i class="far fa-comment"></i></a></button>
