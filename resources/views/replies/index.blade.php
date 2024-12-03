@@ -54,5 +54,5 @@
         </form>
     @endif
     </div>
-    @include('replies.replies', ['post' => $post])
+    @include('replies.replies')
 @endsection

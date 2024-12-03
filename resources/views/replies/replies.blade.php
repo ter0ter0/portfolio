@@ -7,7 +7,7 @@
                 <p class="mt-3 mb-0 d-inline-block"><a href="{{ route('user.show', $reply->user->id) }}">{{$reply->user->name}}</a></p>
             </div>
             <div class="">
-                <div id="post-{{ $reply->id }}">
+                <div id="reply-{{ $reply->id }}">
                     <div class="text-left d-inline-block w-75">
                         <p class="mb-2">{!! nl2br(e($reply->content)) !!}</p>
                         <p class="text-muted">{{$reply->created_at}}</p>
