@@ -13,9 +13,7 @@ class RepliesController extends Controller
     public function index($id)
     {
         $post = Post::findOrFail($id);
-
         $replies = $post->replies()->orderBy('id', 'asc')->paginate(10);
-
         $data = [
             'post' => $post,
             'replies' => $replies,
