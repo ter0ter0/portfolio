@@ -16,7 +16,7 @@
     @endif
     <div class="post-content mb-4 text-center">
         <div class="text-left d-inline-block w-75 mb-2">
-            <img class="mr-2 rounded-circle" src="{{Gravatar::src($post->user->email, 55)}}" alt="ユーザのアバター画像">
+            <img class="mr-2 rounded-circle" src="{{ $post->user->image ? asset('storage/' . $post->user->image) : Gravatar::src($post->user->email, 55) }}" alt="ユーザのアバター画像" style="width: 55px; height: 55px; object-fit: cover; border-radius: 50%;">
             <p class="mt-3 mb-0 d-inline-block"><a href="{{ route('user.show', $post->user->id) }}">{{$post->user->name}}</a></p>
         </div>
         <div class="">
@@ -54,5 +54,5 @@
         </form>
     @endif
     </div>
-    @include('replies.replies', ['post' => $post])
+    @include('replies.replies')
 @endsection

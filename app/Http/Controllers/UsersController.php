@@ -68,6 +68,15 @@ class UsersController extends Controller
     public function update(UserRequest $request, $id)
     {
         $user = User::findOrFail($id);
+
+        if ($request->hasFile('image')) {
+            if ($user->image) {
+                \Storage::disk('public')->delete($user->image);
+            }
+            $path = $request->file('image')->store('profile-images', 'public');
+            $user->image = $path;
+        }
+
         $user->name = $request->name; // フォームから送られてきたname
         $user->email = $request->email;// フォームから送られてきたemail
         $user->password = bcrypt($request->password);
