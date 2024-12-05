@@ -31,4 +31,9 @@ class Post extends Model
         ->orderBy('favorite_users_count', 'desc')
         ->take($limit);
     }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
 }
