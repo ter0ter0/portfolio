@@ -25,6 +25,7 @@ class PostRequest extends FormRequest
     {
         return [
             'content' => 'required|max:140',
+            'tags' => 'nullable|string',
         ];
     }
 
@@ -32,7 +33,8 @@ class PostRequest extends FormRequest
     {
         return [
             'content' => '投稿',
+            'tags' => 'タグ',
         ];
     }
-    
+
 }

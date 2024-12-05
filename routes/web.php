@@ -22,6 +22,9 @@ Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 // トップページの表示
 Route::get('/', 'PostsController@index')->name('post.index');
 
+// タグのリンク先の表示
+Route::get('/tags/{id}', 'TagsController@show')->name('tag.show');
+
 //検索機能
 Route::prefix('search')->group(function(){
     Route::get('', 'SearchController@search')->name('search');
