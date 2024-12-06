@@ -29,7 +29,8 @@
                     @csrf
                     <div class="form-group">
                         <textarea class="form-control" name="content" rows="4"></textarea>
-                        <input class="form-control mt-3" type="text" id="tags" name="tags" placeholder="タグを入力（例：#ラーメン, #つけ麺）">
+                        <input class="form-control mt-3" type="text" id="tags" name="tags" placeholder="タグを入力（例：#ラーメン #つけ麺）">
+                        <p class="text-left">※複数のタグを入力する場合は、半角スペースを入れてください。</p>
                         <div class="text-left mt-3">
                             <button type="submit" class="btn btn-primary">投稿する</button>
                         </div>
@@ -60,7 +61,7 @@
     <script>
         document.querySelector('form').addEventListener('submit', function(e) {
             let tagsInput = document.getElementById('tags');
-            let tags = tagsInput.value.split(',').map(tag => tag.trim().replace(/^#/, ''));
+            let tags = tagsInput.value.split(' ').map(tag => tag.trim().replace(/^#/, '')).filter(tag=> tag !== '');
             tagsInput.value = tags.join(',');
         });
     </script>
