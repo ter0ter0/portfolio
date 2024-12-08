@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Post;
+use App\Tag;
 use App\Http\Requests\PostRequest;
 
 class PostsController extends Controller
@@ -31,7 +32,7 @@ class PostsController extends Controller
         $post->save();
         return redirect()->route('post.index')->with('successMessage', '投稿内容を更新しました');
     }
-    
+
     // 新規投稿処理
     public function store(PostRequest $request)
     {
@@ -40,6 +41,18 @@ class PostsController extends Controller
         $post->content = $request->content;
         $post->user_id = $user->id;
         $post->save();
+
+        // タグの処理
+        if (!empty($request->tags)) {
+            $tags = collect(explode(',', $request->tags))->map(fn($tag) => trim($tag))->filter()->unique();
+
+            $tagIds = $tags->map(function ($tagName) {
+                return Tag::firstOrCreate(['name' => $tagName])->id;
+            });
+
+            $post->tags()->sync($tagIds); // 中間テーブルを更新
+        }
+
         return redirect()->back()->with('successMessage', '投稿しました');
     }
 
