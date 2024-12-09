@@ -7,7 +7,7 @@
         <form method="POST" action="{{ route('post.unfavorite', $post->id) }}#post-{{ $post->id }}"class="d-inline-block" data-toggle="tooltip" title="いいねを取り消す">
             @csrf
             @method('DELETE')
-            <button type="submit" class="btn m-0 p-1 shadow-none"><i class="bi bi-heart-fill"></i></button> 
+            <button type="submit" class="btn m-0 p-1 shadow-none"><i class="bi bi-heart-fill"></i></button>
         </form>
     @else
         <form method="POST" action="{{ route('post.favorite', $post->id) }}#post-{{ $post->id }}" class="d-inline-block" data-toggle="tooltip" title="いいね">
