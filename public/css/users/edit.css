@@ -31,3 +31,8 @@
     cursor: pointer;
     text-align: center;
 }
+.edit__content {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 40px;
+    border-radius: 8px;
+}

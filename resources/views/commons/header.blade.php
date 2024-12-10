@@ -1,6 +1,8 @@
 <header class="mb-5">
     <nav class="navbar navbar-expand-sm navbar-dark">
-        <a class="navbar-brand" href="/">Ramengram</a>
+        <div class="header__logo">
+            <a class="navbar-brand" href="/"><img src="{{ asset('images/logo_white.png') }}" alt="Ramengram"></a>
+        </div>
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#nav-bar">
             <span class="navbar-toggler-icon"></span>
         </button>

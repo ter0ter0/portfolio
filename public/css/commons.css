@@ -10,3 +10,9 @@
 .navbar.navbar-expand-sm.navbar-dark, .navbar.navbar-dark.justify-content-center{
     background-color: #d34441;
 }
+.header__logo{
+    width: 200px;
+}
+.header__logo img{
+    width: 100%;
+}

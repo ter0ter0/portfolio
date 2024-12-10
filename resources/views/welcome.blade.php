@@ -15,11 +15,11 @@
     @endif
     <div class="center jumbotron">
         <div class="text-center text-white mt-2 pt-1">
-            <h1><i class="pr-3"></i>Ramengram</h1>
+            <h1 class="custom__heading"><img src="{{ asset('images/logo_white.png') }}" alt="Ramengram"></h1>
         </div>
     </div>
-    <div class="row">
-        <div class="col-sm-8">
+    <div class="content-f">
+        <div class="custom-left">
             <h5 class="text-center mb-3">"ラーメン"について140字以内で会話しよう！</h5>
             <div class="w-75 m-auto">
             @include('commons.error_messages')
@@ -41,7 +41,7 @@
             </div>
             @include('posts.posts', ['posts' => $posts])
         </div>
-        <aside class="col-sm-4 border-left">
+        <aside class="custom-right">
             <div class="custom-search-input">
                 <form class="input-group col-md-12" method="GET" action="{{ route('search') }}">
                     @csrf
