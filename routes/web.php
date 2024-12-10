@@ -59,16 +59,19 @@ Route::group(['middleware' => 'auth'], function(){
     //DBに投稿を保存
     Route::post('', 'PostsController@store')->name('post.store');
     //投稿関係
-    Route::prefix('posts')->group(function(){
+    Route::prefix('posts/{id}')->group(function(){
         // 投稿編集画面
-        Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
+        Route::get('edit', 'PostsController@edit')->name('post.edit');
         // 投稿編集処理
-        Route::put('{id}/edit', 'PostsController@update')->name('post.update');
+        Route::put('edit', 'PostsController@update')->name('post.update');
         // 投稿の削除
-        Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
-
+        Route::delete('', 'PostsController@destroy')->name('post.delete');
+        // いいねの登録
+        Route::post('favorite', 'FavoritesController@store')->name('post.favorite');
+        // いいねの削除
+        Route::delete('unfavorite', 'FavoritesController@destroy')->name('post.unfavorite');
         // 返信関係
-        Route::prefix('{id}/reply')->group(function(){
+        Route::prefix('reply')->group(function(){
             // 返信の追加処理
             Route::post('', 'RepliesController@store')->name('reply.store');
             // 返信の編集画面
@@ -78,10 +81,5 @@ Route::group(['middleware' => 'auth'], function(){
             // 返信の削除
             Route::delete('delete', 'RepliesController@destroy')->name('reply.delete');
         });
-    });
-    // いいね機能
-    Route::group(['prefix' => 'posts/{id}'], function(){
-        Route::post('favorite', 'FavoritesController@store')->name('post.favorite');
-        Route::delete('unfavorite', 'FavoritesController@destroy')->name('post.unfavorite');
     });
 });

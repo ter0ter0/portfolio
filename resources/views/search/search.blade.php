@@ -1,9 +1,11 @@
 @extends('layouts.app')
+
 @section('css')
     <link rel="stylesheet" href="{{ asset('/css/search/search.css')}}">
 @endsection
+
 @section('content')
-	<div class="row">
+	<div class="search-custom-content">
         <div class="col-md-6">
             <h2>検索フォーム</h2>
             <div class="custom-search-input">
@@ -18,7 +20,7 @@
                 </form>
             </div>
         </div>
-        <div class="col-sm-12 mt-4">
+        <div class="mt-4">
             <ul class="nav nav-tabs nav-justified mb-3">
                 <li class="nav-item"><a href="{{ route('search', ['keyword' => $keyword, 'tab' => 'posts']) }}" class="nav-link {{ $tab === 'posts' ? 'active' : '' }}">投稿</a></li>
                 <li class="nav-item"><a href="{{ route('search', ['keyword' => $keyword, 'tab' => 'users']) }}" class="nav-link {{ $tab === 'users' ? 'active' : '' }}">ユーザー</a></li>
