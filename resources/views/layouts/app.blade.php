@@ -14,23 +14,47 @@
         </div>
         @include('commons.footer')
         <script>
-            document.getElementById('image_file').addEventListener('change', function(event) {
-                const file = event.target.files[0];
-                const preview = document.getElementById('image_preview');
-                const previewContainer = document.getElementById('image-preview-container');
+        document.getElementById('image_file').addEventListener('change', handleFilePreview);
+        document.getElementById('video').addEventListener('change', handleFilePreview);
 
-                if (file) {
-                    const reader = new FileReader();
+        function handleFilePreview(event) {
+            const file = event.target.files[0];
+            const previewImage = document.getElementById('image_preview');
+            const previewVideo = document.getElementById('video_preview');
+
+            if (file) {
+                const reader = new FileReader();
+
+                if (file.type.startsWith('image/')) {
+                    // 画像のプレビュー表示
                     reader.onload = function(e) {
-                        preview.src = e.target.result;
-                        preview.style.display = 'block'; // プレビューを表示
+                        previewImage.src = e.target.result;
+                        previewImage.style.display = 'block';
+                        previewVideo.style.display = 'none'; // 動画を非表示
+                    };
+                    reader.readAsDataURL(file);
+                } else if (file.type.startsWith('video/')) {
+                    // 動画のプレビュー表示
+                    reader.onload = function(e) {
+                        previewVideo.src = e.target.result;
+                        previewVideo.style.display = 'block';
+                        previewImage.style.display = 'none'; // 画像を非表示
                     };
                     reader.readAsDataURL(file);
                 } else {
-                    preview.src = '#';
-                    preview.style.display = 'none'; // プレビューを非表示
+                    // 未対応のファイル形式
+                    alert('画像または動画ファイルを選択してください。');
+                    previewImage.style.display = 'none';
+                    previewVideo.style.display = 'none';
                 }
-            });
+            } else {
+                // ファイル未選択時のリセット
+                previewImage.src = '#';
+                previewVideo.src = '';
+                previewImage.style.display = 'none';
+                previewVideo.style.display = 'none';
+            }
+        }
         </script>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

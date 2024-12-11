@@ -31,6 +31,10 @@
                         <div class="row-btn">
                             <div id="image-preview-container" class="mt-3">
                                 <img id="image_preview" src="#" alt="選択した画像のプレビュー" class="img-fluid" style="display:none; max-width: 100%; height: auto;">
+                                <video id="video_preview" controls class="img-fluid" style="display:none; max-width: 100%; height: auto;">
+                                    <source src="#" type="video/mp4">
+                                    お使いのブラウザでは動画を再生できません。
+                                </video>
                             </div>
                             <textarea class="form-control" name="content" rows="4" style="margin-top: 10px;" placeholder="投稿についてコメントしよう！"></textarea>
                                 <label for="image_file" class="custom-file-upload" style= "margin-top:10px">
