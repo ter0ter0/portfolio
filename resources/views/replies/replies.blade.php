@@ -12,6 +12,11 @@
                         <p class="mb-2">{!! nl2br(e($reply->content)) !!}</p>
                         <p class="text-muted">{{$reply->created_at}}</p>
                     </div>
+                    <div class="d-flex align-items-center w-75 mb-2 mx-auto">
+                        <div class="mr-4">
+                            @include('favorite.reply_favorite_button', ['reply' => $reply])
+                        </div>
+                    </div>
                 </div>
                 @if(Auth::id() === $reply->user_id)
                     <div class="d-flex justify-content-between w-75 pb-3 m-auto">
