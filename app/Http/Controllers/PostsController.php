@@ -13,7 +13,7 @@ class PostsController extends Controller
     public function index()
     {
         $posts = Post::orderBy('id','desc')->paginate(10);
-        $topPosts = Post::withMostFavorite(5)->get();
+        $topPosts = $this->mostFavorite();
         return view('welcome', ['posts' => $posts, 'topPosts' => $topPosts]);
     }
 
@@ -65,4 +65,13 @@ class PostsController extends Controller
         }
         return back()->with('alertMessage', '投稿を削除しました');
     }
+
+    public function mostFavorite()
+    {
+        return Post::withCount('favoriteUsers')
+        ->whereHas('favoriteUsers')
+        ->orderBy('favorite_users_count', 'desc')
+        ->paginate(5);
+    }
+
 }

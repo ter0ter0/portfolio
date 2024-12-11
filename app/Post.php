@@ -24,14 +24,6 @@ class Post extends Model
         return $this->hasMany(Reply::class);
     }
 
-    public function scopeWithMostFavorite($query, $limit = 5)
-    {
-        return $query->withCount('favoriteUsers')
-        ->having('favorite_users_count', '>', '0')
-        ->orderBy('favorite_users_count', 'desc')
-        ->take($limit);
-    }
-
     public function tags()
     {
         return $this->belongsToMany(Tag::class)->withTimestamps();
