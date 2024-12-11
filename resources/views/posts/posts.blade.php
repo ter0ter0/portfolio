@@ -7,6 +7,18 @@
             </div>
             <div class="">
                 <div class="text-left d-inline-block w-75">
+                <div class="mt-1 mb-3">
+                @if (!empty($post->image_path))
+                    <img src="{{ asset('storage/img/' . $post->image_path) }}" alt="投稿画像" style="width: 100%;">
+                @endif
+
+                @if (!empty($post->video_path))
+                        <video controls class="video">
+                            <source src="{{ asset('storage/videos/' . $post->video_path) }}" type="video/mp4">
+                            ご利用のブラウザは動画をサポートしていません。
+                        </video>
+                    @endif
+                </div>
                     <p class="mb-2">{!! nl2br(e($post->content)) !!}</p>
                     <p class="text-muted">{{$post->created_at}}</p>
                 </div>
