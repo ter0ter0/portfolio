@@ -80,6 +80,10 @@ Route::group(['middleware' => 'auth'], function(){
             Route::put('edit', 'RepliesController@update')->name('reply.update');
             // 返信の削除
             Route::delete('delete', 'RepliesController@destroy')->name('reply.delete');
+            //返信に対するいいねの登録
+            Route::post('favorite', 'ReplyFavoritesController@store')->name('reply.favorite');
+            // 返信に対するいいねの削除
+            Route::delete('unfavorite', 'ReplyFavoritesController@destroy')->name('reply.unfavorite');
         });
     });
 });
