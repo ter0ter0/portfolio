@@ -143,7 +143,7 @@ class User extends Authenticatable
     // 返信に対するいいね機能・リレーション
     public function replyFavorites()
     {
-        return $this->belongsToMany(Reply::class, 'reply_favorites', 'user_id', 'reply_id');
+        return $this->belongsToMany(Reply::class, 'reply_favorites', 'user_id', 'reply_id')->withTimestamps();
     }
 
     // いいねをする
