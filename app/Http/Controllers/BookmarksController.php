@@ -10,7 +10,7 @@ class BookmarksController extends Controller
     {
         $user = \Auth::user();
         $posts = $user->bookmarks()->orderBy('id', 'desc')->paginate(10);
-        return view('bookmark.index', ['post' => $post]);
+        return view('bookmark.index', ['posts' => $posts]);
     }
 
     public function store($id)
@@ -21,7 +21,7 @@ class BookmarksController extends Controller
 
     public function destroy($id)
     {
-        \Auth::user()->unBookmark($id);
+        \Auth::user()->unbookmark($id);
         return back();
     }
 }
