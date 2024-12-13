@@ -139,13 +139,53 @@ class User extends Authenticatable
         return $this->favorites()->where('post_id', $postId)->exists();
     }
 
+
+
+    // 返信に対するいいね機能・リレーション
+    public function replyFavorites()
+    {
+        return $this->belongsToMany(Reply::class, 'reply_favorites', 'user_id', 'reply_id')->withTimestamps();
+    }
+
+    // いいねをする
+    public function replyFavorite($replyId)
+    {
+        $exist = $this->isReplyFavorite($replyId);
+        if ($exist) {
+            return false;
+        }
+        else {
+            $this->replyFavorites()->attach($replyId);
+            return true;
+        }
+    }
+
+    // いいねを外す
+    public function replyUnfavorite($replyId)
+    {
+        $exist = $this->isReplyFavorite($replyId);
+        if ($exist) {
+            $this->replyFavorites()->detach($replyId);
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    // いいねしているかどうか確認
+    public function isReplyFavorite($replyId)
+    {
+        return $this->replyFavorites()->where('reply_id', $replyId)->exists();
+    }
+
     // ブックマーク機能・リレーション
     public function bookmarks()
     {
         return $this->belongsToMany(Post::class, 'bookmarks', 'user_id', 'post_id');
     }
 
-    // ブックマーク登録
+    // ブックマークを登録
     public function bookmark($postId)
     {
         $exist = $this->isBookmark($postId);
@@ -159,7 +199,7 @@ class User extends Authenticatable
     }
 
     // ブックマークを解除
-    public function unBookmark($postId)
+    public function unbookmark($postId)
     {
         $exist = $this->isBookmark($postId);
         if ($exist) {
