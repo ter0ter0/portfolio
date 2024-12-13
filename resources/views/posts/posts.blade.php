@@ -24,6 +24,9 @@
                         <div class="mr-4">
                             @include('favorite.favorite_button', ['post' => $post])
                         </div>
+                        <div class="mr-4">
+                            @include('bookmark.bookmark_button', ['post' => $post])
+                        </div>
                     </div>
                 </div>
                 @if(Auth::id() === $post->user_id)

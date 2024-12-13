@@ -140,6 +140,7 @@ class User extends Authenticatable
     }
 
 
+
     // 返信に対するいいね機能・リレーション
     public function replyFavorites()
     {
@@ -176,5 +177,43 @@ class User extends Authenticatable
     public function isReplyFavorite($replyId)
     {
         return $this->replyFavorites()->where('reply_id', $replyId)->exists();
+    }
+
+    // ブックマーク機能・リレーション
+    public function bookmarks()
+    {
+        return $this->belongsToMany(Post::class, 'bookmarks', 'user_id', 'post_id');
+    }
+
+    // ブックマークを登録
+    public function bookmark($postId)
+    {
+        $exist = $this->isBookmark($postId);
+        if ($exist) {
+            return false;
+        }
+        else {
+            $this->bookmarks()->attach($postId);
+            return true;
+        }
+    }
+
+    // ブックマークを解除
+    public function unbookmark($postId)
+    {
+        $exist = $this->isBookmark($postId);
+        if ($exist) {
+            $this->bookmarks()->detach($postId);
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    // ブックマークしているかどうか確認
+    public function isBookmark($postId)
+    {
+        return $this->bookmarks()->where('post_id', $postId)->exists();
     }
 }
