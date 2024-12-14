@@ -57,6 +57,8 @@ Route::group(['middleware' => 'auth'], function(){
         Route::delete('unfollow', 'FollowController@destroy')->name('user.unfollow');
         // ブックマーク一覧ページの取得
         Route::get('bookmark', 'BookmarksController@index')->name('bookmark.index');
+        // 活動記録の一覧表示
+        Route::get('activity', 'ActivitiesController@index')->name('activity.index');
     });
     //DBに投稿を保存
     Route::post('', 'PostsController@store')->name('post.store');
@@ -94,5 +96,12 @@ Route::group(['middleware' => 'auth'], function(){
             // 返信に対するいいねの削除
             Route::delete('unfavorite', 'ReplyFavoritesController@destroy')->name('reply.unfavorite');
         });
+    });
+    // 活動記録関係
+    Route::prefix('activity')->group(function(){
+        // 活動記録の新規登録ページ
+        Route::get('create', 'ActivitiesController@create')->name('activity.create');
+        // 活動記録の新規登録処理
+        Route::post('create', 'ActivitiesController@store')->name('activity.store');
     });
 });
