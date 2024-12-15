@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Post;
 use App\Tag;
+use App\Activity;
 use App\Http\Requests\PostRequest;
 
 class PostsController extends Controller
@@ -14,7 +15,24 @@ class PostsController extends Controller
     {
         $posts = Post::orderBy('id','desc')->paginate(10);
         $topPosts = $this->mostFavorite();
-        return view('welcome', ['posts' => $posts, 'topPosts' => $topPosts]);
+        $data = [
+            'posts' => $posts,
+            'topPosts' => $topPosts,
+            'tab' => 'posts'
+        ];
+        return view('welcome', $data);
+    }
+
+    // 活動記録の一覧表示
+    public function activities()
+    {
+        $activities = Activity::orderBy('id','desc')->paginate(10);
+        $topPosts = $this->mostFavorite();
+        return view('welcome', [
+            'activities' => $activities,
+            'topPosts' => $topPosts,
+            'tab' => 'activities'
+        ]);
     }
 
     // 投稿編集画面の表示

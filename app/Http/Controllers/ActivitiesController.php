@@ -8,10 +8,6 @@ Use App\Activity;
 
 class ActivitiesController extends Controller
 {
-    public function index($id)
-    {
-        //
-    }
     public function create()
     {
         $areas = Area::all();
@@ -36,6 +32,6 @@ class ActivitiesController extends Controller
         $activity->date = $request->date;
         $activity->save();
 
-        return redirect()->route('activity.index')->with('successMessage', '活動を記録しました');
+        return redirect()->route('post.index')->with('successMessage', '活動を記録しました');
     }
 }

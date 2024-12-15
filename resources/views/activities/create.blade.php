@@ -50,7 +50,7 @@
     <script>
         document.getElementById('image').addEventListener('change', function(event){
             const file = event.target.files[0];
-            const preview = document.getElementById('profileImagePreview');
+            const preview = document.getElementById('shopImagePreview');
 
             if (file) {
                 const reader = new FileReader();
