@@ -36,4 +36,17 @@ class Post extends Model
     {
         return $this->belongsToMany(Tag::class)->withTimestamps();
     }
+
+    // リポスト機能自己参照リレーション
+    // オリジナルの投稿をリポストした投稿を取得。（リポスト投稿を取得）
+    public function repostedPosts()
+    {
+        return $this->hasMany(self::class, 'repost_id');
+    }
+
+    // リポスト投稿のオリジナルの投稿を取得。（元の投稿を取得）
+    public function repost()
+    {
+        return $this->belongsTo(self::class, 'repost_id');
+    }
 }

@@ -81,5 +81,10 @@ Route::group(['middleware' => 'auth'], function(){
             // 返信の削除
             Route::delete('delete', 'RepliesController@destroy')->name('reply.delete');
         });
+        // リポスト関係
+        Route::prefix('repost')->group(function(){
+            Route::post('', 'RepostsController@store')->name('repost.store');
+            Route::post('delete', 'RepostsController@destroy')->name('repost.delete');
+        });
     });
 });
