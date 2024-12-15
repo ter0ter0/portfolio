@@ -44,6 +44,11 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
 
+    public function replies()
+    {
+        return $this->hasMany(Reply::class);
+    }
+
     // フォロワーを取得
     public function followers()
     {
@@ -92,6 +97,45 @@ class User extends Authenticatable
         parent::boot();
         static::deleted(function ($user) {
             $user->posts()->delete();
+            $user->replies()->delete();
         });
+    }
+
+    // いいね機能・リレーション
+    public function favorites()
+    {
+        return $this->belongsToMany(Post::class, 'favorites', 'user_id', 'post_id');
+    }
+
+    // いいねをする
+    public function favorite($postId)
+    {
+        $exist = $this->isFavorite($postId);
+        if ($exist) {
+            return false;
+        }
+        else {
+            $this->favorites()->attach($postId);
+            return true;
+        }
+    }
+
+    // いいねを外す
+    public function unfavorite($postId)
+    {
+        $exist = $this->isFavorite($postId);
+        if ($exist) {
+            $this->favorites()->detach($postId);
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    // いいねしているかどうか確認
+    public function isFavorite($postId)
+    {
+        return $this->favorites()->where('post_id', $postId)->exists();
     }
 }

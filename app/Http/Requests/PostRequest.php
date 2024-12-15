@@ -31,6 +31,7 @@ class PostRequest extends FormRequest
 
             // 動画のバリデーション（動画ファイルがアップロードされている場合）
             'video' => 'nullable|mimes:mp4,avi,mov|max:10000', // 10MBまで
+            'tags' => 'nullable|string',
         ];
     }
 
@@ -40,7 +41,8 @@ class PostRequest extends FormRequest
             'content' => '投稿',
             'image_file' => '画像ファイル',
             'video' => '動画ファイル',
+            'tags' => 'タグ',
         ];
     }
-    
+
 }

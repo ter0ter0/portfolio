@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('css')
+    <link rel="stylesheet" href="{{ asset('/css/welcome.css')}}">
     <link rel="stylesheet" href="{{ asset('/css/search/search.css')}}">
 @endsection
 @section('content')
@@ -12,14 +13,14 @@
             {{ session('alertMessage') }}
         </div>
     @endif
-    <div class="center jumbotron bg-info">
+    <div class="center jumbotron">
         <div class="text-center text-white mt-2 pt-1">
-            <h1><i class="pr-3"></i>Topic Posts</h1>
+            <h1 class="custom__heading"><img src="{{ asset('images/logo_white.png') }}" alt="Ramengram"></h1>
         </div>
     </div>
-    <div class="row">
-        <div class="col-sm-8">
-            <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
+    <div class="content-f">
+        <div class="custom-left">
+            <h5 class="text-center mb-3">"ラーメン"について140字以内で会話しよう！</h5>
             <div class="w-75 m-auto">
             @include('commons.error_messages')
             </div>
@@ -32,8 +33,6 @@
                             <div id="image-preview-container" class="mt-3">
                                 <img id="image_preview" src="#" alt="選択した画像のプレビュー" class="img-fluid" style="display:none; max-width: 100%; height: auto;">
                                 <video id="video_preview" controls class="img-fluid" style="display:none; max-width: 100%; height: auto;">
-                                    <source src="#" type="video/mp4">
-                                    お使いのブラウザでは動画を再生できません。
                                 </video>
                             </div>
                             <textarea class="form-control" name="content" rows="4" style="margin-top: 10px;" placeholder="投稿についてコメントしよう！"></textarea>
@@ -45,32 +44,21 @@
                                     動画をアップロード
                                     <input type="file" id="video" name="video" style="display:none;">
                                 </label>
+                                <input class="form-control mt-3" type="text" id="tags" name="tags" placeholder="タグを入力（例：#ラーメン #つけ麺）">
+                                <p class="text-left">※複数のタグを入力する場合は、半角スペースを入れてください。</p>
                                 <div class="text-left mt-3">
                                     <button type="submit" class="btn btn-primary">投稿する</button>
                                 </div>
                         </div>
                     </div>
-                    @if (session('image_path'))
-                    <div class="text-center mt-3">
-                        <img src="{{ asset('/storage/img/' . session('image_path')) }}" alt="アップロードした画像" class="img-fluid">
-                    </div>
-                    @endif
-                    @if (session('video_path'))
-                    <div class="text-center mt-3">
-                        <video controls class="img-fluid">
-                            <source src="{{ asset('/storage/videos/' . session('video_path')) }}" type="video/mp4">
-                            お使いのブラウザでは動画を再生できません。
-                        </video>
-                    </div>
-                    @endif
                 </form>
             @endif
             </div>
             @include('posts.posts', ['posts' => $posts])
         </div>
-        <aside class="col-sm-4 border-left">
+        <aside class="custom-right">
             <div class="custom-search-input">
-                <form class="input-group col-md-12" method="GET" action="">
+                <form class="input-group col-md-12" method="GET" action="{{ route('search') }}">
                     @csrf
                     <input type="text" name="keyword" class="form-control input-lg" value="{{ old('keyword', $keyword ?? '') }}" placeholder="検索" />
                     <span class="input-group-btn">
@@ -80,6 +68,16 @@
                     </span>
                 </form>
             </div>
+            @include('favorite.top_favorite_posts', ['topPosts' => $topPosts])
         </aside>
     </div>
+@endsection
+@section('script')
+    <script>
+        document.querySelector('form').addEventListener('submit', function(e) {
+            let tagsInput = document.getElementById('tags');
+            let tags = tagsInput.value.split(' ').map(tag => tag.trim().replace(/^#/, '')).filter(tag=> tag !== '');
+            tagsInput.value = tags.join(',');
+        });
+    </script>
 @endsection
