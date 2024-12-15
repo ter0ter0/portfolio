@@ -26,14 +26,29 @@
             </div>
             <div class="text-center mb-3">
             @if(Auth::check())
-                <form method="POST" action="{{ route('post.store') }}" class="d-inline-block w-75">
+                <form method="POST" action="{{ route('post.store') }}" class="d-inline-block w-75" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
-                        <textarea class="form-control" name="content" rows="4"></textarea>
-                        <input class="form-control mt-3" type="text" id="tags" name="tags" placeholder="タグを入力（例：#ラーメン #つけ麺）">
-                        <p class="text-left">※複数のタグを入力する場合は、半角スペースを入れてください。</p>
-                        <div class="text-left mt-3">
-                            <button type="submit" class="btn btn-primary">投稿する</button>
+                        <div class="row-btn">
+                            <div id="image-preview-container" class="mt-3">
+                                <img id="image_preview" src="#" alt="選択した画像のプレビュー" class="img-fluid" style="display:none; max-width: 100%; height: auto;">
+                                <video id="video_preview" controls class="img-fluid" style="display:none; max-width: 100%; height: auto;">
+                                </video>
+                            </div>
+                            <textarea class="form-control" name="content" rows="4" style="margin-top: 10px;" placeholder="投稿についてコメントしよう！"></textarea>
+                                <label for="image_file" class="custom-file-upload" style= "margin-top:10px">
+                                    画像をアップロード
+                                    <input type="file" id="image_file" name="image_file" style="display:none;">
+                                </label>
+                                <label for="video" class="custom-file-upload">
+                                    動画をアップロード
+                                    <input type="file" id="video" name="video" style="display:none;">
+                                </label>
+                                <input class="form-control mt-3" type="text" id="tags" name="tags" placeholder="タグを入力（例：#ラーメン #つけ麺）">
+                                <p class="text-left">※複数のタグを入力する場合は、半角スペースを入れてください。</p>
+                                <div class="text-left mt-3">
+                                    <button type="submit" class="btn btn-primary">投稿する</button>
+                                </div>
                         </div>
                     </div>
                 </form>
@@ -57,7 +72,6 @@
         </aside>
     </div>
 @endsection
-
 @section('script')
     <script>
         document.querySelector('form').addEventListener('submit', function(e) {
