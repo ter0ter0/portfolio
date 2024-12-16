@@ -44,12 +44,12 @@
                             @include('replies.reply_button')
                         </div>
                         @if (!$post->repost_id)
-                        <div class="mr-4">
-                            @include('reposts.repost_button')
-                        </div>
-                        <div class="mr-4">
-                            @include('favorite.favorite_button', ['post' => $post])
-                        </div>
+                            <div class="mr-4">
+                                @include('reposts.repost_button')
+                            </div>
+                            <div class="mr-4">
+                                @include('favorite.favorite_button', ['post' => $post])
+                            </div>
                         @endif
                         <div class="mr-4">
                             @include('bookmark.bookmark_button', ['post' => $post])

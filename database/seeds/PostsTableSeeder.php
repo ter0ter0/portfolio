@@ -27,7 +27,7 @@ class PostsTableSeeder extends Seeder
         $post = Post::where('id', $postId)->first();
             for($id = 1; $id <= 5; $id++){ // ユーザー
                 DB::table('posts')->insert([
-                    'content' => 'User'. $post->user_id. 'の投稿をリポスト'. PHP_EOL. $post->content,
+                    'content' => '「User'. $post->user_id. 'の投稿をリポスト」'. PHP_EOL. $post->content,
                     'user_id' => $id,
                     'repost_id' => $post->id,
                     'original_post_user_id' => $post->user_id,

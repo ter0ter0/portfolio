@@ -28,7 +28,6 @@ class RepostsController extends Controller
     public function destroy($postId)
     {
         $user = \Auth::User();
-        $post = Post::findOrFail($postId);
         $repost = Post::where('repost_id', $postId)->where('user_id', $user->id)->first();
         if ($repost){
             $repost->delete();

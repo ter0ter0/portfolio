@@ -1,4 +1,3 @@
-
 @if (Auth::check())
     @if (Auth::user()->isRepost($post->id))
         <form method="POST" action="{{ route('repost.delete', $post->id) }}#post-{{ $post->id }}"class="d-inline-block" data-toggle="tooltip" title="リポストを取り消す">
