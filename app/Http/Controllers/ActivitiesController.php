@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 Use App\Area;
 Use App\Activity;
+use App\Http\Requests\ActivityRequest;
 
 class ActivitiesController extends Controller
 {
@@ -14,7 +15,7 @@ class ActivitiesController extends Controller
         return view('activities.create', ['areas' => $areas]);
     }
 
-    public function store(Request $request)
+    public function store(ActivityRequest $request)
     {
         $user = \Auth::user();
         $activity = new Activity;

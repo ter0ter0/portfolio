@@ -20,7 +20,7 @@ class CreateActivitiesTable extends Migration
             $table->string('image');
             $table->string('shopName');
             $table->string('menuName');
-            $table->string('comment', 140)->nullable();
+            $table->string('comment')->nullable();
             $table->date('date');
             $table->timestamps();
             $table->softDeletes();

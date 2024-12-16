@@ -22,9 +22,9 @@
             <div class="form-group">
                 <label for="area">エリア</label>
                 <select class="form-control create-form__select" name="area_id" id="area">
-                    <option value="" disabled selected>選択してください</option>
+                    <option value="" disabled {{ old('area_id') ? '' : 'selected' }}>選択してください</option>
                     @foreach ($areas as $area)
-                        <option value="{{ $area->id }}" {{ request('area_id') == $area->id ? 'selected' : '' }}>{{ $area->area }}</option>
+                        <option value="{{ $area->id }}" {{ old('area_id') == $area->id ? 'selected' : '' }}>{{ $area->area }}</option>
                     @endforeach
                 </select>
                 <i class="fas fa-caret-down custom-arrow"></i>

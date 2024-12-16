@@ -131,6 +131,7 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'date.before_or_equal' => '日付は、今日以前の日付を指定してください。',
     ],
 
     /*
@@ -143,7 +144,7 @@ return [
     | of "email". This simply helps us make our message more expressive.
     |
     */
-    
+
     'attributes' => [
         'name' => '名前',
         'email' => 'メールアドレス',
