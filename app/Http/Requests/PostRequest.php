@@ -25,6 +25,12 @@ class PostRequest extends FormRequest
     {
         return [
             'content' => 'required|max:140',
+
+            // 画像のバリデーション（画像ファイルがアップロードされている場合）
+            'image_file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+
+            // 動画のバリデーション（動画ファイルがアップロードされている場合）
+            'video' => 'nullable|mimes:mp4,avi,mov|max:10000', // 10MBまで
             'tags' => 'nullable|string',
         ];
     }
@@ -33,6 +39,8 @@ class PostRequest extends FormRequest
     {
         return [
             'content' => '投稿',
+            'image_file' => '画像ファイル',
+            'video' => '動画ファイル',
             'tags' => 'タグ',
         ];
     }
