@@ -49,4 +49,23 @@ class Post extends Model
     {
         return $this->belongsTo(self::class, 'repost_id');
     }
+
+    // オリジナル投稿が削除された時リポスト投稿も削除。
+    protected static function boot() 
+    {
+        parent::boot();
+        static::deleting(function ($post) {
+            $post->repostedPosts()->each(function ($repostedPost) {
+                $repostedPost->delete();
+            });
+        });
+        static::updated(function ($post) {
+            $post->repostedPosts()->each(function ($repostedPost) use($post) {
+                $repostedPost->content = $post->content;
+                $repostedPost->save();
+            });
+        });
+    }
+
+
 }

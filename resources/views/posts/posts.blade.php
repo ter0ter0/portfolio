@@ -9,7 +9,12 @@
             <div class="">
                 <div id="post-{{ $post->id }}">
                     <div class="text-left d-inline-block w-75">
+                        @if ($post->repost_id)
+                        <p class="text-muted"> {{ $post->user->name. "の投稿をリポストしました" }}</p>
+                        <p class="text-muted">「{!! nl2br(e($post->content)) !!}」</p>
+                        @else 
                         <p class="mb-2">{!! nl2br(e($post->content)) !!}</p>
+                        @endif
                         <div class="tags-link">
                             @foreach ($post->tags as $tag)
                                 <a href="{{ route('tag.show', $tag->id) }}">#{{ $tag->name }}</a>
@@ -36,7 +41,9 @@
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">削除</button>
                         </form>
+                        @if (!$post->repost_id)
                         <a href="{{ route('post.edit', $post->id) }}" class="btn btn-primary">編集する</a>
+                        @endif
                     </div>
                 @endif
             </div>
