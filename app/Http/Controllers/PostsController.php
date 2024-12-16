@@ -13,7 +13,7 @@ class PostsController extends Controller
     public function index()
     {
         $posts = Post::orderBy('id','desc')->paginate(10);
-        $topPosts = Post::withMostFavorite(5)->get();
+        $topPosts = $this->mostFavorite();
         return view('welcome', ['posts' => $posts, 'topPosts' => $topPosts]);
     }
 
@@ -40,6 +40,15 @@ class PostsController extends Controller
         $post = new Post;
         $post->content = $request->content;
         $post->user_id = $user->id;
+        if ($request->hasFile('image_file')) {
+            $path = $request->file('image_file')->store('public/img');
+            $post->image_path = basename($path);
+        }
+        if ($request->hasFile('video')) {
+            $path = $request->file('video')->store('public/videos');
+            $post->video_path = basename($path);
+        }
+
         $post->save();
 
         // タグの処理
@@ -65,4 +74,13 @@ class PostsController extends Controller
         }
         return back()->with('alertMessage', '投稿を削除しました');
     }
+
+    public function mostFavorite()
+    {
+        return Post::withCount('favoriteUsers')
+        ->whereHas('favoriteUsers')
+        ->orderBy('favorite_users_count', 'desc')
+        ->paginate(5);
+    }
+
 }

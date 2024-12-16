@@ -24,17 +24,14 @@ class Post extends Model
         return $this->hasMany(Reply::class);
     }
 
-    public function scopeWithMostFavorite($query, $limit = 5)
-    {
-        return $query->withCount('favoriteUsers')
-        ->having('favorite_users_count', '>', '0')
-        ->orderBy('favorite_users_count', 'desc')
-        ->take($limit);
-    }
-
     public function tags()
     {
         return $this->belongsToMany(Tag::class)->withTimestamps();
+    }
+
+    public function bookmarkUsers()
+    {
+        return $this->belongsToMany(User::class,'bookmarks','post_id','user_id')->withTimestamps();
     }
 
     // リポスト機能自己参照リレーション
@@ -50,7 +47,7 @@ class Post extends Model
         return $this->belongsTo(self::class, 'repost_id');
     }
 
-    // オリジナル投稿が削除された時リポスト投稿も削除と更新。
+    // オリジナル投稿が削除と更新された時、リポスト投稿も削除と更新。
     protected static function boot() 
     {
         parent::boot();

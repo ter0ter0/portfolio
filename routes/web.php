@@ -55,6 +55,8 @@ Route::group(['middleware' => 'auth'], function(){
         Route::post('follow', 'FollowController@store')->name('user.follow');
         // フォロー解除
         Route::delete('unfollow', 'FollowController@destroy')->name('user.unfollow');
+        // ブックマーク一覧ページの取得
+        Route::get('bookmark', 'BookmarksController@index')->name('bookmark.index');
     });
     //DBに投稿を保存
     Route::post('', 'PostsController@store')->name('post.store');
@@ -70,6 +72,13 @@ Route::group(['middleware' => 'auth'], function(){
         Route::post('favorite', 'FavoritesController@store')->name('post.favorite');
         // いいねの削除
         Route::delete('unfavorite', 'FavoritesController@destroy')->name('post.unfavorite');
+        // ブックマーク関係
+        Route::prefix('bookmark')->group(function(){
+            // ブックマークの登録
+            Route::post('', 'BookmarksController@store')->name('bookmark.store');
+            // ブックマークの解除
+            Route::delete('delete', 'BookmarksController@destroy')->name('bookmark.delete');
+        });
         // 返信関係
         Route::prefix('reply')->group(function(){
             // 返信の追加処理
@@ -80,6 +89,10 @@ Route::group(['middleware' => 'auth'], function(){
             Route::put('edit', 'RepliesController@update')->name('reply.update');
             // 返信の削除
             Route::delete('delete', 'RepliesController@destroy')->name('reply.delete');
+            //返信に対するいいねの登録
+            Route::post('favorite', 'ReplyFavoritesController@store')->name('reply.favorite');
+            // 返信に対するいいねの削除
+            Route::delete('unfavorite', 'ReplyFavoritesController@destroy')->name('reply.unfavorite');
         });
         // リポスト関係
         Route::prefix('repost')->group(function(){

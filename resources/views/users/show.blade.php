@@ -34,6 +34,13 @@
             <div class="mt-2">
                 @include('follow.follow_button', ['user' => $user])
             </div>
+            <div class="mt-2">
+                @if (Auth::id() === $user->id)
+                    <div class="custom-edit-btn__bookmark">
+                        <a href="{{ route('bookmark.index', $user->id) }}"><i class="fas fa-bookmark"></i> 保存した投稿を見る</a>
+                    </div>
+                @endif
+            </div>
         </aside>
         <div class="custom-tabs">
             <ul class="nav nav-tabs nav-justified mb-3">

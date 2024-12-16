@@ -22,4 +22,9 @@ class Reply extends Model
     {
         return $this->belongsTo(Post::class);
     }
+
+    public function replyFavoriteUsers()
+    {
+        return $this->belongsToMany(User::class,'reply_favorites','reply_id','user_id')->withTimestamps();
+    }
 }

@@ -29,6 +29,23 @@
     text-decoration: none;
 }
 
+.custom-edit-btn__bookmark a{
+    background-color: #2b4269;
+    text-decoration: none;
+    color: #fff;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+    border-radius: 4px;
+    transition: color 0.3s, background-color 0.3s;
+}
+.custom-edit-btn__bookmark a:hover{
+    background-color: #172743;
+    text-decoration: none;
+    color: #fff;
+}
+
 @media(max-width: 575px) {
     .content-f {
         flex-direction: column;
