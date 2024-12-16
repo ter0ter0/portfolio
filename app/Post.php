@@ -45,12 +45,12 @@ class Post extends Model
     }
 
     // リポスト投稿のオリジナルの投稿を取得。（元の投稿を取得）
-    public function repost()
+    public function originalPosts()
     {
         return $this->belongsTo(self::class, 'repost_id');
     }
 
-    // オリジナル投稿が削除された時リポスト投稿も削除。
+    // オリジナル投稿が削除された時リポスト投稿も削除と更新。
     protected static function boot() 
     {
         parent::boot();

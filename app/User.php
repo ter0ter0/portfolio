@@ -139,13 +139,8 @@ class User extends Authenticatable
         return $this->favorites()->where('post_id', $postId)->exists();
     }
 
-    public function reposts()
-    {
-        return $this->hasMany(Post::class, 'repost_id');
-    }
-
     public function isRepost($postId)
     {
-        return $this->reposts()->where('repost_id', $postId)->exists();
+        return $this->posts()->where('repost_id', $postId)->exists();
     }
 }

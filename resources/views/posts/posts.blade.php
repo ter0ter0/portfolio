@@ -10,7 +10,7 @@
                 <div id="post-{{ $post->id }}">
                     <div class="text-left d-inline-block w-75">
                         @if ($post->repost_id)
-                        <p class="text-muted"> {{ $post->user->name. "の投稿をリポストしました" }}</p>
+                        <p class="text-muted"><i class="bi bi-arrow-repeat"> {{ $post->originalPosts->user->name. "の投稿をリポストしました" }}</i></p>
                         <p class="text-muted">「{!! nl2br(e($post->content)) !!}」</p>
                         @else 
                         <p class="mb-2">{!! nl2br(e($post->content)) !!}</p>
@@ -26,9 +26,11 @@
                         <div class="mr-4">
                             @include('replies.reply_button')
                         </div>
+                        @if (!$post->repost_id)
                         <div class="mr-4">
                             @include('reposts.repost_button')
                         </div>
+                        @endif
                         <div class="mr-4">
                             @include('favorite.favorite_button', ['post' => $post])
                         </div>
