@@ -100,8 +100,8 @@ Route::group(['middleware' => 'auth'], function(){
     // 活動記録関係
     Route::prefix('activity')->group(function(){
         // 活動記録の新規登録ページ
-        Route::get('create', 'ActivitiesController@create')->name('activity.create');
+        Route::get('', 'ActivitiesController@create')->name('activity.create');
         // 活動記録の新規登録処理
-        Route::post('create', 'ActivitiesController@store')->name('activity.store');
+        Route::post('', 'ActivitiesController@store')->name('activity.store');
     });
 });

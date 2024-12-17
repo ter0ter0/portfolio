@@ -18,8 +18,8 @@ class CreateActivitiesTable extends Migration
             $table->bigInteger('user_id')->unsigned()->index();
             $table->bigInteger('area_id')->unsigned()->index();
             $table->string('image');
-            $table->string('shopName');
-            $table->string('menuName');
+            $table->string('shop_name');
+            $table->string('menu_name');
             $table->string('comment')->nullable();
             $table->date('date');
             $table->timestamps();

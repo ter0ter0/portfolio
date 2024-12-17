@@ -12,11 +12,11 @@
                         <div class="activity-img" style="width: 80%; aspect-ratio: 1 / 1;">
                             <img src="{{ asset('storage/' . $activity->image) }}" alt="ラーメンの画像" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
                         </div>
-                        <p class="mt-2" style="font-weight: bold; font-size: 20px;">{{ $activity->shopName }}</p>
-                        <p><i class="fas fa-map-marker-alt" style="font-size: 20px;"></i> {{ $activity->area->area }}</p>
+                        <p class="mt-2" style="font-weight: bold; font-size: 20px;">{{ $activity->shop_name }}</p>
+                        <p><i class="fas fa-map-marker-alt" style="font-size: 20px;"></i> {{ $activity->area->prefecture }}</p>
                         <p>
-                            <img src="{{ asset('storage/icons/menuName_icon.svg') }}" alt="メニューアイコン" width="20" height="20" style="vertical-align: text-top">
-                            {{ $activity->menuName }}
+                            <img src="{{ asset('images/menu-name_icon.svg') }}" alt="メニューアイコン" width="20" height="20" style="vertical-align: text-top">
+                            {{ $activity->menu_name }}
                         </p>
                         <p class="mb-2">{!! nl2br(e($activity->comment)) !!}</p>
                         <p class="text-muted">{{ $activity->date }}</p>

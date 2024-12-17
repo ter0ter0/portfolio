@@ -20,15 +20,13 @@ class ActivitiesController extends Controller
         $user = \Auth::user();
         $activity = new Activity;
 
-        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('shop-images', 'public');
-            $activity->image = $path;
-        }
+        $path = $request->file('image')->store('shop-images', 'public');
+        $activity->image = $path;
 
         $activity->user_id = $user->id;
-        $activity->shopName = $request->shopName;
+        $activity->shop_name = $request->shop_name;
         $activity->area_id = $request->area_id;
-        $activity->menuName = $request->menuName;
+        $activity->menu_name = $request->menu_name;
         $activity->comment = $request->comment;
         $activity->date = $request->date;
         $activity->save();

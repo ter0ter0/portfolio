@@ -27,8 +27,8 @@ class ActivityRequest extends FormRequest
         return [
             'area_id' => 'required',
             'image' => 'required|image|mimes:jpg,jpeg,png|max:2048',
-            'shopName' => 'required',
-            'menuName' => 'required',
+            'shop_name' => 'required',
+            'menu_name' => 'required',
             'comment' => 'nullable',
             'date' => 'required|date|before_or_equal:' . Carbon::yesterday()->format('Y-m-d'),
         ];
@@ -39,8 +39,8 @@ class ActivityRequest extends FormRequest
         return [
             'area_id' => 'エリア',
             'image' => '画像',
-            'shopName' => '店舗名',
-            'menuName' => 'メニュー名',
+            'shop_name' => '店舗名',
+            'menu_name' => 'メニュー名',
             'comment' => 'コメント',
             'date' => '日付',
         ];

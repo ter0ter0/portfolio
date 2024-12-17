@@ -16,30 +16,30 @@
                 <input class="shop-image-input" id="image" type="file" name="image" accept="image/*">
             </div>
             <div class="form-group">
-                <label for="shopName">店舗名</label>
-                <input class="form-control" type="text" value="{{ old('shopName') }}" name="shopName" />
+                <label for="shop_name">店舗名</label>
+                <input class="form-control" type="text" value="{{ old('shop_name') }}" name="shop_name" id="shop_name" />
             </div>
             <div class="form-group">
                 <label for="area">エリア</label>
                 <select class="form-control create-form__select" name="area_id" id="area">
                     <option value="" disabled {{ old('area_id') ? '' : 'selected' }}>選択してください</option>
                     @foreach ($areas as $area)
-                        <option value="{{ $area->id }}" {{ old('area_id') == $area->id ? 'selected' : '' }}>{{ $area->area }}</option>
+                        <option value="{{ $area->id }}" {{ old('area_id') == $area->id ? 'selected' : '' }}>{{ $area->prefecture }}</option>
                     @endforeach
                 </select>
                 <i class="fas fa-caret-down custom-arrow"></i>
             </div>
             <div class="form-group">
-                <label for="menuName">食べたメニュー</label>
-                <input class="form-control" type="text" value="{{ old('menuName') }}" name="menuName" />
+                <label for="menu_name">食べたメニュー</label>
+                <input class="form-control" type="text" value="{{ old('menu_name') }}" name="menu_name" id="menu_name" />
             </div>
             <div class="form-group">
                 <label for="comment">コメント</label>
-                <textarea class="form-control" name="comment" rows="4">{{ old('comment') }}</textarea>
+                <textarea class="form-control" name="comment" id="comment" rows="4">{{ old('comment') }}</textarea>
             </div>
             <div class="form-group">
                 <label for="date">食べた日付</label>
-                <input class="form-control" type="date" value="{{ old('date') }}" name="date" />
+                <input class="form-control" type="date" value="{{ old('date') }}" name="date" id="date" />
             </div>
             <button type="submit" class="btn btn-primary">投稿する</button>
         </form>
