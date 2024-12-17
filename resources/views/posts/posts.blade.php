@@ -64,7 +64,7 @@
                             <button type="submit" class="btn btn-danger">削除</button>
                         </form>
                         @if (!$post->repost_id)
-                        <a href="{{ route('post.edit', $post->id) }}" class="btn btn-primary">編集する</a>
+                            <a href="{{ route('post.edit', $post->id) }}" class="btn btn-primary">編集する</a>
                         @endif
                     </div>
                 @endif
