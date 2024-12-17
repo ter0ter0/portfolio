@@ -21,6 +21,8 @@ Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
 // トップページの表示
 Route::get('/', 'PostsController@index')->name('post.index');
+// 活動記録の一覧表示（トップページ）
+Route::get('activities', 'PostsController@activities')->name('post.activities');
 
 // タグのリンク先の表示
 Route::get('/tags/{id}', 'TagsController@show')->name('tag.show');
@@ -94,5 +96,12 @@ Route::group(['middleware' => 'auth'], function(){
             // 返信に対するいいねの削除
             Route::delete('unfavorite', 'ReplyFavoritesController@destroy')->name('reply.unfavorite');
         });
+    });
+    // 活動記録関係
+    Route::prefix('activity')->group(function(){
+        // 活動記録の新規登録ページ
+        Route::get('', 'ActivitiesController@create')->name('activity.create');
+        // 活動記録の新規登録処理
+        Route::post('', 'ActivitiesController@store')->name('activity.store');
     });
 });

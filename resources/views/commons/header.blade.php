@@ -10,6 +10,7 @@
             <ul class="navbar-nav mr-auto"></ul>
             <ul class="navbar-nav">
                 @if(Auth::check())
+                    <li class="nav-item"><a href="{{ route('activity.create', Auth::user()->id )}}" class="nav-link text-light"><i class="fas fa-camera"></i> 記録する</a></li>
                     <li class="nav-item"><a href="{{ route('user.show', Auth::user()->id )}}" class="nav-link text-light">{{ Auth::user()->name }}</a></li>
                     <li class="nav-item"><a href="{{ route('logout') }}" class="nav-link text-light">ログアウト</a></li>
                 @else

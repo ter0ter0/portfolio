@@ -49,6 +49,11 @@ class User extends Authenticatable
         return $this->hasMany(Reply::class);
     }
 
+    public function activities()
+    {
+        return $this->hasMany(Activity::class);
+    }
+
     // フォロワーを取得
     public function followers()
     {
