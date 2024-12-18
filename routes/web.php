@@ -39,6 +39,8 @@ Route::prefix('users/{id}')->group(function(){
     Route::get('followers', 'UsersController@followers')->name('user.followers');
     // フォロー中の表示
     Route::get('followings', 'UsersController@followings')->name('user.followings');
+    // ユーザーの活動記録一覧ページ
+    Route::get('activities', 'ActivitiesController@userActivities')->name('user.activities');
 });
 
 // 返信ページの表示

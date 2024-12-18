@@ -1,5 +1,6 @@
 .content-f{
     display: flex;
+    flex-direction: row;
 }
 .card.custom-card{
     background-color: #ad302e;
@@ -45,6 +46,73 @@
     text-decoration: none;
     color: #fff;
 }
+.activity-card{
+    width: 100%;
+    background-color: #2b4269;
+    color: #fff;
+    border-radius: 4px;
+    padding: 20px;
+}
+.activity-card .activity__heading{
+    font-size: 18px;
+    font-weight: bold;
+    border-bottom: 1px solid #fff;
+    margin: 0;
+    padding: 0 0 10px 0;
+}
+.activity__count{
+    display: flex;
+    justify-content: space-between;
+}
+.activity__count-total, .activity__count-month{
+    margin: 10px 0 0 0;
+    padding: 0;
+    font-size: 14px;
+}
+.activity__count-total span, .activity__count-month span{
+    font-size: 32px;
+    font-weight: bold;
+    display: inline-block;
+    margin-left: 6px;
+    margin-right: 6px;
+}
+
+.activity__link{
+    margin-top: 10px;
+    padding: 6px 0;
+    text-align: center;
+    display: block;
+    width: 100%;
+    background-color: #fff;
+    text-decoration: none;
+    color: #2b4269;
+    border-radius: 4px;
+    transition: opacity 0.3s;
+}
+.activity__link:hover{
+    text-decoration: none;
+    color: #2b4269;
+    opacity: 0.7;
+}
+
+@media(max-width: 991px) {
+    .activity__count{
+        flex-direction: column;
+    }
+}
+
+@media(max-width: 767px) {
+    .activity__count-total,
+    .activity__count-month {
+        font-size: 12px;
+    }
+    .activity__count-total span,
+    .activity__count-month span {
+        font-size: 24px;
+        margin-left: 2px;
+        margin-right: 2px;
+    }
+}
 
 @media(max-width: 575px) {
     .content-f {
@@ -52,5 +120,20 @@
     }
     .custom-tabs {
         width: 100%;
+    }
+    .activity__count {
+        flex-direction: row;
+        justify-content: center;
+        gap: 10%;
+    }
+    .activity__count-total,
+    .activity__count-month {
+        font-size: 14px;
+    }
+    .activity__count-total span,
+    .activity__count-month span {
+        font-size: 32px;
+        margin-left: 6px;
+        margin-right: 6px;
     }
 }

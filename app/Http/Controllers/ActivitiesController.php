@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 Use App\Area;
 Use App\Activity;
+Use App\User;
 use App\Http\Requests\ActivityRequest;
 
 class ActivitiesController extends Controller
@@ -79,5 +80,18 @@ class ActivitiesController extends Controller
             $activity->delete();
         }
         return back()->with('alertMessage', '活動記録を削除しました');
+    }
+
+    // ユーザーが所有する活動記録の一覧
+    public function userActivities($id)
+    {
+        $user = User::findOrFail($id);
+        if ($user->id !== \Auth::id()) {
+            abort(403);
+        }
+
+        $activities = $user->activities()->orderBy('id', 'desc')->paginate(10);
+
+        return view('activities.user_activities', ['activities' => $activities]);
     }
 }

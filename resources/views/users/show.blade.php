@@ -24,15 +24,25 @@
                     <div class="rounded-circle overflow-hidden mx-auto" style="max-width: 100%; width: 90%; aspect-ratio: 1 / 1;">
                         <img src="{{ $user->image ? asset('storage/' . $user->image) : Gravatar::src($user->email, 400) }}" alt="ユーザのアバター画像" class="w-100 h-100" style="object-fit: cover;">
                     </div>
-                        @if (Auth::id() === $user->id)
-                            <div class="custom-edit-btn">
-                                <a href="{{ route('user.edit', $user->id) }}">ユーザ情報の編集</a>
-                            </div>
-                        @endif
+                    @if (Auth::id() === $user->id)
+                        <div class="custom-edit-btn">
+                            <a href="{{ route('user.edit', $user->id) }}">ユーザ情報の編集</a>
+                        </div>
+                    @endif
                 </div>
             </div>
             <div class="mt-2">
                 @include('follow.follow_button', ['user' => $user])
+            </div>
+            <div class="mt-2">
+                <div class="activity-card">
+                    <p class="activity__heading">ラ活の記録</p>
+                    <div class="activity__count">
+                        <p class="activity__count-total">トータル<span>10</span>杯</p>
+                        <p class="activity__count-month">今月<span>2</span>杯</p>
+                    </div>
+                    <a class="activity__link" href="{{ route('user.activities', $user->id) }}">記録を見る <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
             </div>
             <div class="mt-2">
                 @if (Auth::id() === $user->id)
