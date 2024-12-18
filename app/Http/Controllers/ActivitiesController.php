@@ -69,6 +69,15 @@ class ActivitiesController extends Controller
         $activity->date = $request->date;
         $activity->save();
 
-        return redirect()->route('post.index')->with('successMessage', 'ラ活記録を更新しました');
+        return redirect()->route('post.index')->with('successMessage', '活動記録を更新しました');
+    }
+
+    public function destroy($id)
+    {
+        $activity = Activity::findOrFail($id);
+        if ($activity->user_id === \Auth::id()){
+            $activity->delete();
+        }
+        return back()->with('alertMessage', '活動記録を削除しました');
     }
 }
