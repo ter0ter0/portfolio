@@ -33,4 +33,42 @@ class ActivitiesController extends Controller
 
         return redirect()->route('post.index')->with('successMessage', '活動を記録しました');
     }
+
+    public function edit($id)
+    {
+        $activity = Activity::findOrFail($id);
+        $areas = Area::all();
+        $user = \Auth::user();
+
+        if ($user->id !== $activity->user_id) {
+            abort(403);
+        }
+
+        $data = [
+            'activity' => $activity,
+            'areas' => $areas,
+        ];
+
+        return view('activities.edit', $data);
+    }
+
+    public function update(ActivityRequest $request, $id)
+    {
+        $activity = Activity::findOrFail($id);
+        $user = \Auth::user();
+
+        \Storage::disk('public')->delete($activity->image);
+        $path = $request->file('image')->store('shop-images', 'public');
+        $activity->image = $path;
+
+        $activity->user_id = $user->id;
+        $activity->shop_name = $request->shop_name;
+        $activity->area_id = $request->area_id;
+        $activity->menu_name = $request->menu_name;
+        $activity->comment = $request->comment;
+        $activity->date = $request->date;
+        $activity->save();
+
+        return redirect()->route('post.index')->with('successMessage', 'ラ活記録を更新しました');
+    }
 }

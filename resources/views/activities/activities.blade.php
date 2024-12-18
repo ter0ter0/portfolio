@@ -29,7 +29,7 @@
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">削除</button>
                         </form>
-                        <a href="" class="btn btn-primary">編集する</a>
+                        <a href="{{ route('activity.edit', $activity->id) }}" class="btn btn-primary">編集する</a>
                     </div>
                 @endif
             </div>

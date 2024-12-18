@@ -103,5 +103,9 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('', 'ActivitiesController@create')->name('activity.create');
         // 活動記録の新規登録処理
         Route::post('', 'ActivitiesController@store')->name('activity.store');
+        // 活動記録の編集ページ
+        Route::get('edit/{id}', 'ActivitiesController@edit')->name('activity.edit');
+        // 活動記録の編集処理
+        Route::put('edit/{id}', 'ActivitiesController@update')->name('activity.update');
     });
 });
