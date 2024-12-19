@@ -7,6 +7,7 @@ Use App\Area;
 Use App\Activity;
 Use App\User;
 use App\Http\Requests\ActivityRequest;
+use Carbon\Carbon;
 
 class ActivitiesController extends Controller
 {
@@ -83,15 +84,33 @@ class ActivitiesController extends Controller
     }
 
     // ユーザーが所有する活動記録の一覧
-    public function userActivities($id)
+    public function userActivities(Request $request, $id)
     {
         $user = User::findOrFail($id);
-        if ($user->id !== \Auth::id()) {
-            abort(403);
-        }
 
-        $activities = $user->activities()->orderBy('id', 'desc')->paginate(10);
+        // dateパラメータを取得、デフォルトは現在の月
+        $date = $request->query('date', Carbon::now()->format('Y-m'));
+        $endDate = Carbon::parse($date)->endOfMonth(); // 終了日
+        $startDate = $endDate->copy()->subMonths(5)->startOfMonth(); // 過去6ヶ月間の開始日
 
-        return view('activities.user_activities', ['activities' => $activities]);
+        // 6ヶ月分のデータを取得
+        $activities = $user->activities()
+            ->whereBetween('date', [$startDate, $endDate])
+            ->orderBy('date', 'desc')
+            ->get()
+            ->groupBy(function ($activity) {
+                return Carbon::parse($activity->date)->format('Y年n月'); // 月毎にグループ化
+            });
+
+        $countActivities = $user->countActivities();
+        $countActivitiesThisMonth = $user->countActivitiesThisMonth();
+
+        return view('activities.user_activities', [
+            'user' => $user,
+            'activities' => $activities,
+            'countActivities' => $countActivities,
+            'countActivitiesThisMonth' => $countActivitiesThisMonth,
+            'date' => $date, // 現在の範囲の開始月をビューに渡す
+        ]);
     }
 }

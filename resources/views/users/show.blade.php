@@ -38,8 +38,8 @@
                 <div class="activity-card">
                     <p class="activity__heading">ラ活の記録</p>
                     <div class="activity__count">
-                        <p class="activity__count-total">トータル<span>10</span>杯</p>
-                        <p class="activity__count-month">今月<span>2</span>杯</p>
+                        <p class="activity__count-total">トータル<span>{{ $countActivities }}</span>杯</p>
+                        <p class="activity__count-month">今月<span>{{ $countActivitiesThisMonth }}</span>杯</p>
                     </div>
                     <a class="activity__link" href="{{ route('user.activities', $user->id) }}">記録を見る <i class="fas fa-arrow-circle-right"></i></a>
                 </div>

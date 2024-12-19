@@ -62,7 +62,8 @@
 }
 .activity__count{
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 20%;
 }
 .activity__count-total, .activity__count-month{
     margin: 10px 0 0 0;
