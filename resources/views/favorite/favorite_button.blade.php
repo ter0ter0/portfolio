@@ -1,5 +1,6 @@
 @php
     $countFavoriteUsers = $post->favoriteUsers()->count();
+    $countRepostFavorite = $post->favoriteUsers()->where('post_id', 'repost_id')->first();
 @endphp
 
 @if (Auth::check())
@@ -18,7 +19,12 @@
 @else
     <a href="{{ route('login') }}" class="btn m-0 p-1 shadow-none" data-toggle="tooltip" title="いいねしてログイン"><i class="bi bi-heart"></i></a>
 @endif
+
+@if ($post->repost_id)
+<span id="favorite-count-{{ $post->post_id }}" class="badge badge-pill">{{ $countRepostFavorite }}</span>
+@else
 <span id="favorite-count-{{ $post->post_id }}" class="badge badge-pill">{{ $countFavoriteUsers }}</span>
+@endif
 
 <script>
     // ツールチップ初期化処理
