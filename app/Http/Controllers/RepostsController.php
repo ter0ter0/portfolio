@@ -20,6 +20,8 @@ class RepostsController extends Controller
             $repost->content = $originalPost->content;
             $repost->repost_id = $originalPost->id;
             $repost->original_post_user_id = $originalPost->user_id;
+            $repost->image_path = $originalPost->image_path;
+            $repost->video_path = $originalPost->video_path;
             $repost->save();
         }
         return redirect()->back();

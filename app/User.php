@@ -104,18 +104,20 @@ class User extends Authenticatable
     // いいね機能・リレーション
     public function favorites()
     {
-        return $this->belongsToMany(Post::class, 'favorites', 'user_id', 'post_id');
+        return $this->belongsToMany(Post::class, 'favorites', 'user_id', 'post_id')->withPivot('repost_id')->withTimestamps();
     }
 
     // いいねをする
     public function favorite($postId)
     {
+        $post = Post::findOrFail($postId);
+        $repostId = $post->repost_id ?? null;
         $exist = $this->isFavorite($postId);
         if ($exist) {
             return false;
         }
         else {
-            $this->favorites()->attach($postId);
+            $this->favorites()->attach($postId, ['repost_id' => $repostId]);
             return true;
         }
     }
@@ -123,9 +125,11 @@ class User extends Authenticatable
     // いいねを外す
     public function unfavorite($postId)
     {
+        $post = Post::findOrFail($postId);
+        $repostId = $post->repost_id ?? null;
         $exist = $this->isFavorite($postId);
         if ($exist) {
-            $this->favorites()->detach($postId);
+            $this->favorites()->detach($postId, ['repost_id' => $repostId]);
             return true;
         }
         else {
@@ -138,8 +142,6 @@ class User extends Authenticatable
     {
         return $this->favorites()->where('post_id', $postId)->exists();
     }
-
-
 
     // 返信に対するいいね機能・リレーション
     public function replyFavorites()
