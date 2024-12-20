@@ -1,0 +1,9 @@
+.activity__content{
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 40px;
+    border-radius: 8px;
+}
+.avatar{
+    width: 75%;
+    margin: 0 auto 30px auto;
+}
