@@ -20,14 +20,14 @@ class CreatePostsTable extends Migration
             $table->bigIncrements('id'); // 主キー。idが自動的に追加。
             $table->bigInteger('user_id')->unsigned()->index(); // ユーザーのid。マイナス符号がない大きい整数。indexで検索しやすい。
             $table->string('content', 140); // 投稿内容。
-            $table->unsignedBigInteger('repost_id')->nullable()->index();
+            $table->unsignedBigInteger('original_post_id')->nullable()->index();
             $table->unsignedBigInteger('original_post_user_id')->nullable()->index();
             $table->timestamps(); // メソッドが実行された時間（投稿した時間）
             $table->softDeletes(); // 論理削除(優しい削除)
 
             // 外部キー制約
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade'); // ユーザーテーブルのidとポストテーブルのuser_idを外部キー制約。
-            $table->foreign('repost_id')->references('id')->on('posts')->onDelete('cascade');
+            $table->foreign('original_post_id')->references('id')->on('posts')->onDelete('cascade');
             $table->foreign('original_post_user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }

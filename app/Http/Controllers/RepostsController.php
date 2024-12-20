@@ -18,7 +18,7 @@ class RepostsController extends Controller
             $repost = new Post();
             $repost->user_id = $user->id;
             $repost->content = $originalPost->content;
-            $repost->repost_id = $originalPost->id;
+            $repost->original_post_id = $originalPost->id;
             $repost->original_post_user_id = $originalPost->user_id;
             $repost->save();
         }
@@ -28,7 +28,7 @@ class RepostsController extends Controller
     public function destroy($postId)
     {
         $user = \Auth::User();
-        $repost = Post::where('repost_id', $postId)->where('user_id', $user->id)->first();
+        $repost = Post::where('original_post_id', $postId)->where('user_id', $user->id)->first();
         if ($repost){
             $repost->delete();
         }

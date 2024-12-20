@@ -29,7 +29,7 @@ class PostsTableSeeder extends Seeder
                 DB::table('posts')->insert([
                     'content' => '「User'. $post->user_id. 'の投稿をリポスト」'. PHP_EOL. $post->content,
                     'user_id' => $id,
-                    'repost_id' => $post->id,
+                    'original_post_id' => $post->id,
                     'original_post_user_id' => $post->user_id,
                     'created_at' => now(),
                     'updated_at' => now(),

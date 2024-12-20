@@ -2,7 +2,7 @@
     @foreach($posts as $post)
         <li class="mb-3 text-center">
             <hr class="my-4">
-            @if ($post->repost_id)
+            @if ($post->original_post_id)
                 <div class="text-left d-inline-block w-75 mb-2 text-muted" style="font-size: 13px"><i class="bi bi-arrow-repeat"></i>
                     <a class="text-muted" href="{{ route('user.show', $post->user->id) }}">{{$post->user->name}}</a> さんがリポスト
                 </div>
@@ -43,7 +43,7 @@
                         <div class="mr-4">
                             @include('replies.reply_button')
                         </div>
-                        @if (!$post->repost_id)
+                        @if (!$post->original_post_id)
                             <div class="mr-4">
                                 @include('reposts.repost_button')
                             </div>
@@ -63,7 +63,7 @@
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">削除</button>
                         </form>
-                        @if (!$post->repost_id)
+                        @if (!$post->original_post_id)
                             <a href="{{ route('post.edit', $post->id) }}" class="btn btn-primary">編集する</a>
                         @endif
                     </div>

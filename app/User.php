@@ -220,6 +220,6 @@ class User extends Authenticatable
     // リポストしているかどうか確認
     public function isRepost($postId)
     {
-        return $this->posts()->where('repost_id', $postId)->exists();
+        return $this->posts()->where('original_post_id', $postId)->exists();
     }
 }

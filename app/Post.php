@@ -38,13 +38,13 @@ class Post extends Model
     // オリジナルの投稿をリポストした投稿を取得。（リポスト投稿を取得）
     public function repostedPosts()
     {
-        return $this->hasMany(self::class, 'repost_id');
+        return $this->hasMany(self::class, 'original_post_id');
     }
 
     // リポスト投稿のオリジナルの投稿を取得。（元の投稿を取得）
     public function originalPosts()
     {
-        return $this->belongsTo(self::class, 'repost_id');
+        return $this->belongsTo(self::class, 'original_post_id');
     }
 
     // オリジナル投稿が削除と更新された時、リポスト投稿も削除と更新。
