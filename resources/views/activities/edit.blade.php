@@ -12,7 +12,7 @@
             @csrf
             @method('PUT')
             <div class="form-group">
-                <div class="shop-image-preview" id="shopImagePreview" style="background-image: url('{{ asset('storage/' . $activity->image) }}')"></div>
+                <div class="shop-image-preview" id="shopImagePreview" style="background-image: url('{{ old('image') ? asset('storage/' . old('image')) : asset('storage/' . $activity->image) }}')"></div>
                 <label class="shop-image-label" for="image">画像を選択する</label>
                 <input class="shop-image-input" id="image" type="file" name="image" accept="image/*">
             </div>

@@ -59,9 +59,11 @@ class ActivitiesController extends Controller
         $activity = Activity::findOrFail($id);
         $user = \Auth::user();
 
-        \Storage::disk('public')->delete($activity->image);
-        $path = $request->file('image')->store('shop-images', 'public');
-        $activity->image = $path;
+        if ($request->hasFile('image')) {
+            \Storage::disk('public')->delete($activity->image);
+            $path = $request->file('image')->store('shop-images', 'public');
+            $activity->image = $path;
+        }
 
         $activity->user_id = $user->id;
         $activity->shop_name = $request->shop_name;
