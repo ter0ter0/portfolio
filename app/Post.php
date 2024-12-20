@@ -63,6 +63,4 @@ class Post extends Model
             });
         });
     }
-
-
 }

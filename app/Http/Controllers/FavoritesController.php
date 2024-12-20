@@ -18,4 +18,3 @@ class FavoritesController extends Controller
         return back();
     }
 }
-
