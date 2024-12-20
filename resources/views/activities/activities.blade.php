@@ -9,7 +9,7 @@
             <div class="">
                 <div id="activity-{{ $activity->id }}">
                     <div class="text-left d-inline-block w-75">
-                        <div class="activity-img" style="width: 80%; aspect-ratio: 1 / 1;">
+                        <div class="activity-img" style="width: 100%; aspect-ratio: 1 / 1;">
                             <img src="{{ asset('storage/' . $activity->image) }}" alt="ラーメンの画像" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
                         </div>
                         <p class="mt-2" style="font-weight: bold; font-size: 20px;">{{ $activity->shop_name }}</p>
@@ -24,12 +24,12 @@
                 </div>
                 @if(Auth::id() === $activity->user_id)
                     <div class="d-flex justify-content-between w-75 pb-3 m-auto">
-                        <form method="POST" action="">
+                        <form method="POST" action="{{ route('activity.delete', $activity->id) }}">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">削除</button>
                         </form>
-                        <a href="" class="btn btn-primary">編集する</a>
+                        <a href="{{ route('activity.edit', $activity->id) }}" class="btn btn-primary">編集する</a>
                     </div>
                 @endif
             </div>

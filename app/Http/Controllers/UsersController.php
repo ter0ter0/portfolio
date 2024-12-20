@@ -14,10 +14,15 @@ class UsersController extends Controller
     {
         $user = User::findOrFail($id);
         $posts = $user->posts()->orderBy('id', 'desc')->paginate(10);
+        $countActivities = $user->countActivities();
+        $countActivitiesThisMonth = $user->countActivitiesThisMonth();
+
         $data = [
             'user' => $user,
             'posts' => $posts,
             'tab' =>'timeline',
+            'countActivities' => $countActivities,
+            'countActivitiesThisMonth' => $countActivitiesThisMonth,
         ];
         $data += $this->userCounts($user);
         return view('users.show', $data);

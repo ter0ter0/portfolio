@@ -26,12 +26,19 @@ class ActivityRequest extends FormRequest
     {
         return [
             'area_id' => 'required',
-            'image' => 'required|image|mimes:jpg,jpeg,png|max:2048',
             'shop_name' => 'required',
             'menu_name' => 'required',
             'comment' => 'nullable',
             'date' => 'required|date|before_or_equal:' . Carbon::yesterday()->format('Y-m-d'),
         ];
+
+        // 新規登録時と更新時で条件分岐
+        $rulesImageExist = 'required';
+        if ($this->isMethod('put')) {
+            $rulesImageExist = 'nullable';
+        }
+        $rules['image'] = $rulesImageExist . '|image|mimes:jpg,jpeg,png|max:2048';
+        return $rules;
     }
 
     public function attributes()

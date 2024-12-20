@@ -39,6 +39,8 @@ Route::prefix('users/{id}')->group(function(){
     Route::get('followers', 'UsersController@followers')->name('user.followers');
     // フォロー中の表示
     Route::get('followings', 'UsersController@followings')->name('user.followings');
+    // ユーザーの活動記録一覧ページ
+    Route::get('activities', 'ActivitiesController@userActivities')->name('user.activities');
 });
 
 // 返信ページの表示
@@ -105,8 +107,14 @@ Route::group(['middleware' => 'auth'], function(){
     // 活動記録関係
     Route::prefix('activity')->group(function(){
         // 活動記録の新規登録ページ
-        Route::get('', 'ActivitiesController@create')->name('activity.create');
+        Route::get('create', 'ActivitiesController@create')->name('activity.create');
         // 活動記録の新規登録処理
         Route::post('', 'ActivitiesController@store')->name('activity.store');
+        // 活動記録の編集ページ
+        Route::get('{id}/edit', 'ActivitiesController@edit')->name('activity.edit');
+        // 活動記録の編集処理
+        Route::put('{id}', 'ActivitiesController@update')->name('activity.update');
+        // 活動記録の削除
+        Route::delete('{id}', 'ActivitiesController@destroy')->name('activity.delete');
     });
 });
