@@ -100,5 +100,4 @@ class PostsController extends Controller
         ->orderBy('favorite_users_count', 'desc')
         ->paginate(5);
     }
-
 }

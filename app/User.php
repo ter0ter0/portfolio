@@ -221,4 +221,10 @@ class User extends Authenticatable
     {
         return $this->bookmarks()->where('post_id', $postId)->exists();
     }
+
+    // リポストしているかどうか確認
+    public function isRepost($postId)
+    {
+        return $this->posts()->where('original_post_id', $postId)->exists();
+    }
 }
