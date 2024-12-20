@@ -9,7 +9,7 @@
             <div class="">
                 <div id="activity-{{ $activity->id }}">
                     <div class="text-left d-inline-block w-75">
-                        <div class="activity-img" style="width: 80%; aspect-ratio: 1 / 1;">
+                        <div class="activity-img" style="width: 100%; aspect-ratio: 1 / 1;">
                             <img src="{{ asset('storage/' . $activity->image) }}" alt="ラーメンの画像" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
                         </div>
                         <p class="mt-2" style="font-weight: bold; font-size: 20px;">{{ $activity->shop_name }}</p>

@@ -33,11 +33,11 @@ class ActivityRequest extends FormRequest
         ];
 
         // 新規登録時と更新時で条件分岐
+        $rulesImageExist = 'required';
         if ($this->isMethod('put')) {
-            $rules['image'] = 'nullable|image|mimes:jpg,jpeg,png|max:2048';
-        } else {
-            $rules['image'] = 'required|image|mimes:jpg,jpeg,png|max:2048';
+            $rulesImageExist = 'nullable';
         }
+        $rules['image'] = $rulesImageExist . '|image|mimes:jpg,jpeg,png|max:2048';
         return $rules;
     }
 
