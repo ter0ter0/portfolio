@@ -10,7 +10,7 @@
             <img class="mr-2 rounded-circle" src="{{ $activity->user->image ? asset('storage/' . $activity->user->image) : Gravatar::src($activity->user->email, 55) }}" alt="ユーザのアバター画像" style="width: 55px; height: 55px; object-fit: cover; border-radius: 50%;">
             <p class="mt-3 mb-0 d-inline-block"><a href="{{ route('user.show', $activity->user->id) }}">{{$activity->user->name}}</a></p>
         </div>
-        <div class="w-75 m-auto">
+        <div class="activity-inner">
             <div id="activity-{{ $activity->id }}">
                 <div class="text-left d-inline-block">
                     <div class="activity-img" style="width: 100%; aspect-ratio: 4 / 3;">
