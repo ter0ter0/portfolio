@@ -69,7 +69,7 @@ class User extends Authenticatable
             ->whereMonth('date', Carbon::now()->month)
             ->count();
     }
-    
+
     // フォロワーを取得
     public function followers()
     {
@@ -236,5 +236,11 @@ class User extends Authenticatable
     public function isBookmark($postId)
     {
         return $this->bookmarks()->where('post_id', $postId)->exists();
+    }
+
+    // リポストしているかどうか確認
+    public function isRepost($postId)
+    {
+        return $this->posts()->where('original_post_id', $postId)->exists();
     }
 }

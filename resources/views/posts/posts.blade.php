@@ -2,10 +2,20 @@
     @foreach($posts as $post)
         <li class="mb-3 text-center">
             <hr class="my-4">
-            <div class="text-left d-inline-block w-75 mb-2">
-                <img class="mr-2 rounded-circle" src="{{ $post->user->image ? asset('storage/' . $post->user->image) : Gravatar::src($post->user->email, 55) }}" alt="ユーザのアバター画像" style="width: 55px; height: 55px; object-fit: cover; border-radius: 50%;">
-                <p class="mt-3 mb-0 d-inline-block"><a href="{{ route('user.show', $post->user->id) }}">{{$post->user->name}}</a></p>
-            </div>
+            @if ($post->original_post_id)
+                <div class="text-left d-inline-block w-75 mb-2 text-muted" style="font-size: 13px"><i class="bi bi-arrow-repeat"></i>
+                    <a class="text-muted" href="{{ route('user.show', $post->user->id) }}">{{$post->user->name}}</a> さんがリポスト
+                </div>
+                <div class="text-left d-inline-block w-75 mb-2">
+                    <img class="mr-2 rounded-circle" src="{{ $post->originalPosts->user->image ? asset('storage/' . $post->originalPosts->user->image) : Gravatar::src($post->originalPosts->user->email, 55) }}" alt="ユーザのアバター画像" style="width: 55px; height: 55px; object-fit: cover; border-radius: 50%;">
+                    <p class="mt-3 mb-0 d-inline-block"><a href="{{ route('user.show', $post->originalPosts->user->id) }}">{{$post->originalPosts->user->name}}</a></p>
+                </div>
+            @else
+                <div class="text-left d-inline-block w-75 mb-2">
+                    <img class="mr-2 rounded-circle" src="{{ $post->user->image ? asset('storage/' . $post->user->image) : Gravatar::src($post->user->email, 55) }}" alt="ユーザのアバター画像" style="width: 55px; height: 55px; object-fit: cover; border-radius: 50%;">
+                    <p class="mt-3 mb-0 d-inline-block"><a href="{{ route('user.show', $post->user->id) }}">{{$post->user->name}}</a></p>
+                </div>
+            @endif
             <div class="">
                 <div id="post-{{ $post->id }}">
                     <div class="text-left d-inline-block w-75">
@@ -33,9 +43,14 @@
                         <div class="mr-4">
                             @include('replies.reply_button')
                         </div>
-                        <div class="mr-4">
-                            @include('favorite.favorite_button', ['post' => $post])
-                        </div>
+                        @if (!$post->original_post_id)
+                            <div class="mr-4">
+                                @include('reposts.repost_button')
+                            </div>
+                            <div class="mr-4">
+                                @include('favorite.favorite_button', ['post' => $post])
+                            </div>
+                        @endif
                         <div class="mr-4">
                             @include('bookmark.bookmark_button', ['post' => $post])
                         </div>
@@ -48,7 +63,9 @@
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">削除</button>
                         </form>
-                        <a href="{{ route('post.edit', $post->id) }}" class="btn btn-primary">編集する</a>
+                        @if (!$post->original_post_id)
+                            <a href="{{ route('post.edit', $post->id) }}" class="btn btn-primary">編集する</a>
+                        @endif
                     </div>
                 @endif
             </div>

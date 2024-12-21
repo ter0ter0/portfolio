@@ -103,6 +103,11 @@ Route::group(['middleware' => 'auth'], function(){
             // 返信に対するいいねの削除
             Route::delete('unfavorite', 'ReplyFavoritesController@destroy')->name('reply.unfavorite');
         });
+        // リポスト関係
+        Route::prefix('repost')->group(function(){
+            Route::post('', 'RepostsController@store')->name('repost.store');
+            Route::delete('delete', 'RepostsController@destroy')->name('repost.delete');
+        });
     });
     // 活動記録関係
     Route::prefix('activity')->group(function(){
