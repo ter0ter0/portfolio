@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-Use App\Area;
-Use App\Activity;
-Use App\User;
+use App\Area;
+use App\Activity;
+use App\User;
 use App\Http\Requests\ActivityRequest;
 use Carbon\Carbon;
 
@@ -114,5 +114,11 @@ class ActivitiesController extends Controller
             'countActivitiesThisMonth' => $countActivitiesThisMonth,
             'date' => $date, // 現在の範囲の開始月をビューに渡す
         ]);
+    }
+
+    public function show($id)
+    {
+        $activity = Activity::findOrFail($id);
+        return view('activities.show', ['activity' => $activity]);
     }
 }

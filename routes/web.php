@@ -21,8 +21,13 @@ Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
 // トップページの表示
 Route::get('/', 'PostsController@index')->name('post.index');
-// 活動記録の一覧表示（トップページ）
-Route::get('activities', 'PostsController@activities')->name('post.activities');
+// 活動記録
+Route::prefix('activities')->group(function(){
+    // 活動記録の一覧表示（トップページ）
+    Route::get('', 'PostsController@activities')->name('post.activities');
+    // 活動記録の詳細ページ
+    Route::get('{id}', 'ActivitiesController@show')->name('activity.show');
+});
 
 // タグのリンク先の表示
 Route::get('/tags/{id}', 'TagsController@show')->name('tag.show');

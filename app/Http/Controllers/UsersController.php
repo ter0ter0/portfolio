@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-Use App\User;
-Use App\Post;
+use App\User;
+use App\Post;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Hash;
 

@@ -32,12 +32,14 @@
     justify-content: center;
     gap: 20%;
 }
+
 .activity__count-total,
 .activity__count-month {
     margin: 0;
     padding: 0;
     font-size: 14px;
 }
+
 .activity__count-total span,
 .activity__count-month span {
     font-size: 32px;
@@ -46,6 +48,11 @@
     margin-left: 6px;
     margin-right: 6px;
 }
+
+.month-list {
+    margin-top: 20px;
+}
+
 .month-list{
     margin-top: 20px;
 }
@@ -55,6 +62,7 @@
     background-color: #f9ece2;
     font-size: 24px;
 }
+
 .month-list__content-f{
     margin-top: 20px;
     display: grid;
@@ -63,6 +71,11 @@
     row-gap: calc(20px + 4vh);
     justify-content: center;
 }
+
+.activity-card {
+    width: 100%;
+}
+
 .activity-card{
     width: 100%;
 }
@@ -71,6 +84,7 @@
     color: #000;
     transition: opacity 0.3s;
 }
+
 .activity-card a:hover {
     text-decoration: none;
     color: #000;

@@ -5,7 +5,7 @@
             <div class="month-list__content-f">
                 @foreach ($monthActivities as $activity)
                     <div class="activity-card">
-                        <a href="">
+                        <a href="{{ route('activity.show', $activity->id) }}">
                             <div class="activity-card__img">
                                 <img src="{{ asset('storage/' . $activity->image) }}" alt="活動記録の画像">
                             </div>
