@@ -104,20 +104,40 @@ class User extends Authenticatable
     // いいね機能・リレーション
     public function favorites()
     {
-        return $this->belongsToMany(Post::class, 'favorites', 'user_id', 'post_id')->withPivot('repost_id')->withTimestamps();
+        return $this->belongsToMany(Post::class, 'favorites', 'user_id', 'post_id')->withPivot('original_post_id')->withTimestamps();
     }
 
     // いいねをする
     public function favorite($postId)
     {
+        $user = \Auth::User();
         $post = Post::findOrFail($postId);
-        $repostId = $post->repost_id ?? null;
+        $repostId = $post->original_post_id ?? null;
         $exist = $this->isFavorite($postId);
+
         if ($exist) {
             return false;
         }
         else {
-            $this->favorites()->attach($postId, ['repost_id' => $repostId]);
+            if ($repostId) {
+                $originalPost = $post->originalPosts;
+                $user->favorites()->syncWithoutDetaching([
+                    $post->id => ['original_post_id' => $repostId],
+                    $originalPost->id
+                ]);
+            }
+            else {
+                $originalPost = $post->originalPosts;
+                $reposts = $post->repostedPosts; // リポスト投稿
+                $postIdsWithPivot = [];
+
+                foreach ($reposts as $repost) {
+                $postIdsWithPivot[$repost->id]  = ['original_post_id' => $post->id];
+                $postIdsWithPivot[$post->id]  = ['original_post_id' => null];
+                }
+
+                $user->favorites()->syncWithoutDetaching($postIdsWithPivot);
+            }
             return true;
         }
     }
@@ -125,11 +145,25 @@ class User extends Authenticatable
     // いいねを外す
     public function unfavorite($postId)
     {
+        $user = \Auth::User();
         $post = Post::findOrFail($postId);
-        $repostId = $post->repost_id ?? null;
+        $repostId = $post->original_post_id ?? null;
         $exist = $this->isFavorite($postId);
+
         if ($exist) {
-            $this->favorites()->detach($postId, ['repost_id' => $repostId]);
+            if ($repostId) {
+                $originalPost = $post->originalPosts;
+                $user->favorites()->detach([
+                    $post->id,
+                    $originalPost->id
+                ]);
+            }
+            else {
+                $repost = $post->repostedPosts;
+                $postIds = $repost->pluck('id')->toArray();
+                $postIds[] = $post->id;
+                $user->favorites()->detach($postIds);
+            }
             return true;
         }
         else {
@@ -222,6 +256,6 @@ class User extends Authenticatable
     // リポストしているかどうか確認
     public function isRepost($postId)
     {
-        return $this->posts()->where('repost_id', $postId)->exists();
+        return $this->posts()->where('original_post_id', $postId)->exists();
     }
 }
