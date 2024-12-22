@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Carbon\Carbon;
 
 class User extends Authenticatable
 {
@@ -47,6 +48,26 @@ class User extends Authenticatable
     public function replies()
     {
         return $this->hasMany(Reply::class);
+    }
+
+    public function activities()
+    {
+        return $this->hasMany(Activity::class);
+    }
+
+    // 活動記録の総数を取得
+    public function countActivities()
+    {
+        return $this->activities()->count();
+    }
+
+    // 今月の活動記録の数を取得
+    public function countActivitiesThisMonth()
+    {
+        return $this->activities()
+            ->whereYear('date', Carbon::now()->year)
+            ->whereMonth('date', Carbon::now()->month)
+            ->count();
     }
 
     // フォロワーを取得

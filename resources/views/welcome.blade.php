@@ -54,7 +54,15 @@
                 </form>
             @endif
             </div>
-            @include('posts.posts', ['posts' => $posts])
+            <ul class="nav nav-tabs nav-justified mb-3">
+                <li class="nav-item"><a href="{{ route('post.index') }}" class="nav-link {{ $tab === 'posts' ? 'active' : '' }}" style="height: 100%">投稿</a></li>
+                <li class="nav-item"><a href="{{ route('post.activities') }}" class="nav-link {{ $tab === 'activities' ? 'active' : '' }}">ラ活報告</a></li>
+            </ul>
+            @if ($tab === 'posts')
+                @include('posts.posts', ['posts' => $posts])
+            @elseif ($tab === 'activities')
+                @include('activities.activities', ['activities' => $activities])
+            @endif
         </div>
         <aside class="custom-right">
             <div class="custom-search-input">
