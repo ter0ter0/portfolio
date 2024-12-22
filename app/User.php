@@ -127,15 +127,13 @@ class User extends Authenticatable
                 ]);
             }
             else {
-                $originalPost = $post->originalPosts;
-                $reposts = $post->repostedPosts; // リポスト投稿
+                $reposts = $post->repostedPosts;
                 $postIdsWithPivot = [];
 
                 foreach ($reposts as $repost) {
-                $postIdsWithPivot[$repost->id]  = ['original_post_id' => $post->id];
-                $postIdsWithPivot[$post->id]  = ['original_post_id' => null];
+                    $postIdsWithPivot[$repost->id]  = ['original_post_id' => $post->id];
                 }
-
+                $postIdsWithPivot[$post->id]  = ['original_post_id' => null];
                 $user->favorites()->syncWithoutDetaching($postIdsWithPivot);
             }
             return true;
