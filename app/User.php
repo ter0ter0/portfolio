@@ -125,18 +125,38 @@ class User extends Authenticatable
     // いいね機能・リレーション
     public function favorites()
     {
-        return $this->belongsToMany(Post::class, 'favorites', 'user_id', 'post_id');
+        return $this->belongsToMany(Post::class, 'favorites', 'user_id', 'post_id')->withPivot('original_post_id')->withTimestamps();
     }
 
     // いいねをする
     public function favorite($postId)
     {
+        $user = \Auth::User();
+        $post = Post::findOrFail($postId);
+        $repostId = $post->original_post_id ?? null;
         $exist = $this->isFavorite($postId);
+
         if ($exist) {
             return false;
         }
         else {
-            $this->favorites()->attach($postId);
+            if ($repostId) {
+                $originalPost = $post->originalPosts;
+                $user->favorites()->syncWithoutDetaching([
+                    $post->id => ['original_post_id' => $repostId],
+                    $originalPost->id
+                ]);
+            }
+            else {
+                $reposts = $post->repostedPosts;
+                $postIdsWithPivot = [];
+
+                foreach ($reposts as $repost) {
+                    $postIdsWithPivot[$repost->id]  = ['original_post_id' => $post->id];
+                }
+                $postIdsWithPivot[$post->id]  = ['original_post_id' => null];
+                $user->favorites()->syncWithoutDetaching($postIdsWithPivot);
+            }
             return true;
         }
     }
@@ -144,9 +164,25 @@ class User extends Authenticatable
     // いいねを外す
     public function unfavorite($postId)
     {
+        $user = \Auth::User();
+        $post = Post::findOrFail($postId);
+        $repostId = $post->original_post_id ?? null;
         $exist = $this->isFavorite($postId);
+
         if ($exist) {
-            $this->favorites()->detach($postId);
+            if ($repostId) {
+                $originalPost = $post->originalPosts;
+                $user->favorites()->detach([
+                    $post->id,
+                    $originalPost->id
+                ]);
+            }
+            else {
+                $repost = $post->repostedPosts;
+                $postIds = $repost->pluck('id')->toArray();
+                $postIds[] = $post->id;
+                $user->favorites()->detach($postIds);
+            }
             return true;
         }
         else {
@@ -159,8 +195,6 @@ class User extends Authenticatable
     {
         return $this->favorites()->where('post_id', $postId)->exists();
     }
-
-
 
     // 返信に対するいいね機能・リレーション
     public function replyFavorites()
