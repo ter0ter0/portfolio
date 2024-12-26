@@ -24,6 +24,7 @@
             <ul class="nav nav-tabs nav-justified mb-3">
                 <li class="nav-item"><a href="{{ route('search', ['keyword' => $keyword, 'tab' => 'posts']) }}" class="nav-link {{ $tab === 'posts' ? 'active' : '' }}">投稿</a></li>
                 <li class="nav-item"><a href="{{ route('search', ['keyword' => $keyword, 'tab' => 'users']) }}" class="nav-link {{ $tab === 'users' ? 'active' : '' }}">ユーザー</a></li>
+                <li class="nav-item"><a href="{{ route('search', ['keyword' => $keyword, 'tab' => 'activities']) }}" class="nav-link {{ $tab === 'activities' ? 'active' : '' }}">ラ活報告</a></li>
             </ul>
             @if ($tab === 'posts' && $posts)
                 @if (!$posts->isEmpty())
@@ -36,6 +37,12 @@
                     @include('users.users', ['users' => $users])
                 @else
                     <p>該当するユーザーはありません。</p>
+                @endif
+            @elseif ($tab === 'activities' && $activities)
+                @if (!$activities->isEmpty())
+                    @include('activities.activities', ['activities' => $activities])
+                @else
+                    <p>該当するラ活報告はありません。</p>
                 @endif
             @endif
         </div>
