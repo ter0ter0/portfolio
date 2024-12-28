@@ -24,7 +24,7 @@ class ActivityRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             'area_id' => 'required',
             'shop_name' => 'required',
             'menu_name' => 'required',
@@ -38,6 +38,7 @@ class ActivityRequest extends FormRequest
             $rulesImageExist = 'nullable';
         }
         $rules['image'] = $rulesImageExist . '|image|mimes:jpg,jpeg,png|max:2048';
+
         return $rules;
     }
 
