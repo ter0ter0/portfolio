@@ -121,5 +121,9 @@ Route::group(['middleware' => 'auth'], function(){
         Route::put('{id}', 'ActivitiesController@update')->name('activity.update');
         // 活動記録の削除
         Route::delete('{id}', 'ActivitiesController@destroy')->name('activity.delete');
+        //グッドボタンの登録
+        Route::post('{id}/nice', 'GoodButtonsController@store')->name('activity.nice');
+        // グッドボタンの削除
+        Route::delete('{id}/unnice', 'GoodButtonsController@destroy')->name('activity.unnice');
     });
 });

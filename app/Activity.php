@@ -18,4 +18,9 @@ class Activity extends Model
     {
         return $this->belongsTo(Area::class);
     }
+
+    public function goodBtnUsers()
+    {
+        return $this->belongsToMany(User::class, 'good_buttons', 'activity_id', 'user_id')->withTimestamps();
+    }
 }
