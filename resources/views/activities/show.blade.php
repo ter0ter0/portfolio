@@ -26,6 +26,11 @@
                     <p class="text-muted">{{ $activity->date }}</p>
                 </div>
             </div>
+            <div class="d-flex align-items-left mb-2 mx-auto">
+                <div class="mr-4">
+                    @include('good_button.good_button', ['activity' => $activity])
+                </div>
+            </div>
             @if(Auth::id() === $activity->user_id)
                 <div class="d-flex justify-content-between pb-3">
                     <form method="POST" action="{{ route('activity.delete', $activity->id) }}">
