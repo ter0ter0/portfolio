@@ -59,12 +59,12 @@ class PostsController extends Controller
         $post->content = $request->content;
         $post->user_id = $user->id;
         if ($request->hasFile('image_file')) {
-            $path = $request->file('image_file')->store('public/img');
-            $post->image_path = basename($path);
+            $path = $request->file('image_file')->store('image','public');
+            $post->image_path = $path;
         }
         if ($request->hasFile('video')) {
-            $path = $request->file('video')->store('public/videos');
-            $post->video_path = basename($path);
+            $path = $request->file('video')->store('videos','public');
+            $post->video_path = $path;
         }
 
         $post->save();

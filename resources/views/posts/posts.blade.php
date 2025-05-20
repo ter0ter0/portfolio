@@ -21,12 +21,12 @@
                     <div class="text-left d-inline-block w-75">
                         <div class="mt-1 mb-3">
                             @if (!empty($post->image_path))
-                                <img src="{{ asset('storage/img/' . $post->image_path) }}" alt="投稿画像" style="width: 100%;">
+                                <img src="{{ asset('storage/' . $post->image_path) }}" alt="投稿画像" style="width: 100%;">
                             @endif
 
                             @if (!empty($post->video_path))
                                 <video controls class="video">
-                                    <source src="{{ asset('storage/videos/' . $post->video_path) }}" type="video/mp4">
+                                    <source src="{{ asset('storage/' . $post->video_path) }}" type="video/mp4">
                                     ご利用のブラウザは動画をサポートしていません。
                                 </video>
                             @endif
