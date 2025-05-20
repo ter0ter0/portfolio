@@ -277,4 +277,42 @@ class User extends Authenticatable
     {
         return $this->posts()->where('original_post_id', $postId)->exists();
     }
+
+    // ラ活に対するグッドボタン機能・リレーション
+    public function goodButtons()
+    {
+        return $this->belongsToMany(Activity::class, 'good_buttons', 'user_id', 'activity_id')->withTimestamps();
+    }
+
+    // ラ活のグッドボタン登録
+    public function goodButton($activityId)
+    {
+        $exist = $this->isGoodButton($activityId);
+        if ($exist) {
+            return false;
+        }
+        else {
+            $this->goodButtons()->attach($activityId);
+            return true;
+        }
+    }
+
+    // ラ活のグッドボタンを外す
+    public function unGoodButton($activityId)
+    {
+        $exist = $this->isGoodButton($activityId);
+        if ($exist) {
+            $this->goodButtons()->detach($activityId);
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    // ラ活にグッドボタンをしてるかどうか確認
+    public function isGoodButton($activityId)
+    {
+        return $this->goodButtons()->where('activity_id', $activityId)->exists();
+    }
 }
