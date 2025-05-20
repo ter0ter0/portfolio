@@ -3,6 +3,8 @@
  投稿・返信・リポスト・お気に入り、ブックマークなどできます。 <br >
  レスポンシブ対応しているのでスマホからもご確認いただけます。
  ![Image](https://github.com/user-attachments/assets/e478a9fe-f61c-4d52-94fa-d416e21feb20)
+ <img width="420" alt="Image" src="https://github.com/user-attachments/assets/55e727d8-17eb-42de-b792-4864ee910485" />
+ 
 
 # 使用技術
 - PHP 8.2.4
