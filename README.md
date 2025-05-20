@@ -11,7 +11,7 @@
 - Adminer 4.7.5
 - Apache 2.4.56
 - Docker/Docker-compose
-- fly.io
+- fly.io（現在停止中）
 
 # 機能一覧
 - ユーザー登録、ログイン機能
